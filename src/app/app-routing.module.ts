@@ -4,17 +4,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'ofertas',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    path: 'ofertas',
+    loadChildren: './ofertas/ofertas.module#OfertasPageModule'
   },
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  }
+  },
+  { path: 'ficha-oferta',
+    loadChildren: './ficha-oferta/ficha-oferta.module#FichaOfertaPageModule' },
+  { path: 'restaurantes', loadChildren: './restaurantes/restaurantes.module#RestaurantesPageModule' }
 ];
 
 @NgModule({
