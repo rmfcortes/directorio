@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="origen"></ion-back-button>
+        </ion-buttons>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-slides pager="true" [options]="slidesOpts" #slideWithNav>
+            <ion-slide *ngFor="let s of negocio.url">
+                <img [src]="s">
+            </ion-slide>
+        </ion-slides>
+        <div class="contenido">
+            <ion-label class="titulo">
+                {{negocio.nombre}}
+            </ion-label>
+            <ion-label class="titulo">
+                {{negocio.nombre}}
+            </ion-label>
+            <rating [rate]="negocio.rate" readonly="false" size="default">
+            </rating>
+        </div>
+    </div>
+</ion-content>

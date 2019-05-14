@@ -1,0 +1,24 @@
+.img-logo {
+    height: 2rem;
+}
+
+.back-img {
+    width: 100%;
+    height: 100%;
+}
+
+.myCard {
+    position: relative;
+}
+
+.myOverlay {
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    z-index: 99;
+    bottom: 0px;
+    opacity: 0.5;
+    background: #000;
+    color: #fff;
+    margin-bottom: 3rem;
+}

@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-slides [options]="sliderConfig">
+        <ion-slide *ngFor="let product of categorias">
+            <ion-button color="primary" slot="start" fill="outline">
+                {{product}}
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+
+
+    <div *ngFor="let oferta of ofertas">
+        <ion-img (click)="presentModal(oferta)" class="mb-5" [src]="oferta.foto" alt=""></ion-img>
+        <ion-grid>
+            <ion-row justify-content-center>
+                <ion-col size="2">
+                    <ion-img class="icono-categoria-card" src="../../assets/images/restaurantes.png" alt=""></ion-img>
+                </ion-col>
+                <ion-col size="8">
+                    <ion-row justify-content-center>
+                        <ion-text color="primary">
+                            <h5 class="mt-0">{{oferta.titulo}}</h5>
+                        </ion-text>
+                    </ion-row>
+                    <ion-row justify-content-center>
+                        <ion-label class="text-desc">{{oferta.condiciones}}</ion-label>
+                    </ion-row>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-img class="icono-mapa-card" src="../../assets/images/pin-mapa.png" alt=""></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <hr>
+
+</ion-content>
