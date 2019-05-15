@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-searchbar placeholder="Restaurantes" debounce="500"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let item of negocios" [routerLink]="['/lista', item.categoria, item.id]">
+            <ion-thumbnail slot="start">
+                <img [src]="item.url[0]">
+            </ion-thumbnail>
+            <div>
+                <ion-item>
+                    <ion-label text-wrap>
+                        Multi-line text that should wrap when it is too long to fit on one line in the item.
+                    </ion-label>
+                </ion-item>
+                <ion-label text-wrap class="mb-5 mt-0">{{item.nombre}}</ion-label>
+                <ion-label class="negocio-descripcion">{{item.descripcion}}</ion-label>
+            </div>
+            <div slot="end" *ngIf="item.rate > 0">
+                <ion-note color="primary" class="star">{{item.rate}}
+                    <ion-icon name="star"></ion-icon>
+                </ion-note>
+            </div>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
