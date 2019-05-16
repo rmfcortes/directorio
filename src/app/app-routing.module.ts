@@ -11,6 +11,7 @@ const routes: Routes = [
     path: '',
     loadChildren: './contenido/contenido.module#ContenidoPageModule'
   },
+  { path: 'mapa', loadChildren: './contenido/mapa/mapa.module#MapaPageModule' },
 ];
 
 @NgModule({
