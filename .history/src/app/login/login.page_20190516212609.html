@@ -1,0 +1,29 @@
+<ion-content>
+    <div class="contenido">
+        <div class="cuadro">
+            <div class="icono">
+
+            </div>
+            <form class="formulario" (ngSubmit)="verificarUsuario()" action="" #forma="ngForm">
+                <ion-item>
+                    <ion-label color="primary" position="floating">Correo</ion-label>
+                    <ion-input color="primary" type="email" required [(ngModel)]="correo" name="correo"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" position="floating">Contraseña</ion-label>
+                    <ion-input color="primary" type="password" required [(ngModel)]="pass" name="pass"></ion-input>
+                </ion-item>
+                <ion-button [disabled]="!forma.valid " type="submit" color="primary" style="opacity: 0.8; margin-top: 1rem;" expand="block" shape="round">
+                    Iniciar sesión
+                </ion-button>
+
+                <a href="" style="margin-top: 1.5rem; float: right;">Registrarme</a>
+
+
+                <ion-button color="info" style="margin-top: 1rem;" expand="block">
+                    Iniciar sesión
+                </ion-button>
+            </form>
+        </div>
+    </div>
+</ion-content>
