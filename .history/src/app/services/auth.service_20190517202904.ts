@@ -32,7 +32,7 @@ export class AuthService {
 
       const gplusUser = await this.gPlus.login({
         webClientId: '765159975436-pc92uulk4js00k82aqokgc0hnq5qmr80.apps.googleusercontent.com',
-        offline: false,
+        offline: true,
         scopes: 'profile email'
       });
       console.log(gplusUser);

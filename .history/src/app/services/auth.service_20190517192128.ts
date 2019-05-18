@@ -26,23 +26,8 @@ export class AuthService {
     }).catch((error) => console.log('Error:' + error));
   }
 
-  async loginGoogle() {
-    console.log('Login GPlus');
-    try {
-
-      const gplusUser = await this.gPlus.login({
-        webClientId: '765159975436-pc92uulk4js00k82aqokgc0hnq5qmr80.apps.googleusercontent.com',
-        offline: false,
-        scopes: 'profile email'
-      });
-      console.log(gplusUser);
-
-      return await this.authFirebase.auth.signInWithCredential(auth.GoogleAuthProvider.credential(gplusUser.idToken));
-
-    } catch (err) {
-      console.log(err);
-    }
-
+  loginGoogle() {
+    return this.authFirebase.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   revisa() {

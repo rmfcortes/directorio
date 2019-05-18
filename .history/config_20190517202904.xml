@@ -97,7 +97,9 @@
     <plugin name="cordova-android-support-gradle-release" spec="^3.0.0">
         <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.2.1" />
+    <plugin name="cordova-plugin-googleplus" spec="7.0.1">
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="765159975436-pc92uulk4js00k82aqokgc0hnq5qmr80.apps.googleusercontent.com" />
+    </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

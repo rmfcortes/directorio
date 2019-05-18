@@ -28,11 +28,14 @@ export class LoginPage implements OnInit {
   }
 
   loginGoogle() {
-    console.log('Google');
-    this.authService.loginGoogle();
+    this.authService.loginGoogle().then(resp => {
+      console.log(resp);
+    })
+    .catch(err => console.log(err));
   }
 
   revisa() {
+    console.log('Google');
     this.authService.revisa().subscribe(resp => {
       console.log(resp);
     });
