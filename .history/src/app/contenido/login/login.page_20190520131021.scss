@@ -1,0 +1,44 @@
+.contenido {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-color: #ff4f38;
+    z-index: 1;
+    display: block;
+}
+
+.cuadro1 {
+    height: 75%;
+    width: 75%;
+    top: 12.5%;
+    left: 12.5%;
+    position: absolute;
+    background-color: white;
+    z-index: 3;
+}
+
+.cuadro2 {
+    height: 75%;
+    width: 75%;
+    top: 12.5%;
+    left: 12.5%;
+    position: absolute;
+    background-color: white;
+    opacity: 0.4;
+    z-index: 2;
+}
+
+.formulario {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 10%;
+}
+
+.back-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14pt;
+    color: white;
+}

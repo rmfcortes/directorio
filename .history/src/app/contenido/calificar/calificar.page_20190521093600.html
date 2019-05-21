@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="origen"></ion-back-button>
+        </ion-buttons>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-item class="mb-5">
+            <ion-avatar slot="start">
+                <img [src]="comentario.url">
+            </ion-avatar>
+            <ion-label>{{comentario.usuario}}</ion-label>
+        </ion-item>
+        <rating [(ngModel)]="comentario.calificacion" name="calificacion">
+        </rating>
+        <ion-item class="mb-5">
+            <ion-label color="medium" position="floating">Breve descripción de tu experiencia*</ion-label>
+            <ion-textarea [(ngModel)]="comentario.descripcion" name="descripcion"></ion-textarea>
+        </ion-item>
+
+        <ion-button (click)="publicarComentario()" [disabled]="comentario.descripcion.length < 10" expand="block">Publicar reseña</ion-button>
+    </div>
+</ion-content>

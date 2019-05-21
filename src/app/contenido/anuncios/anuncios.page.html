@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis anuncios</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="anuncios.length === 0">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes anuncios publicados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-button (click)="presentActionSheet()" expand="block" color="primary">Agregar anuncio</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-list *ngIf="anuncios.length > 0">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                </ion-avatar>
+                <ion-label>Item Avatar</ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

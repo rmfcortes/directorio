@@ -1,0 +1,48 @@
+<ion-split-pane>
+    <ion-menu menuId="menu" [disabled]="menuGeneral" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <img style="height: 2rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-list>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item routerLink="/ofertas">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/descuentos.png" alt=""> Ofertas
+                    </ion-item>
+                    <ion-item *ngFor="let cat of categorias" [routerLink]="['/lista', cat]">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/restaurantes.png" alt="">{{cat}}
+                    </ion-item>
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+
+    </ion-menu>
+
+    <ion-menu menuId="menuAccount" [disabled]="menuAccount" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <img style="height: 2rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-list>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item routerLink="/ofertas">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/descuentos.png" alt=""> Ofertas
+                    </ion-item>
+                    <ion-item *ngFor="let cat of categorias" [routerLink]="['/lista', cat]">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/restaurantes.png" alt="">{{cat}}
+                    </ion-item>
+                    <ion-item (click)="cerrarSesion()">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/icono-cerrar-sesion-png-6.png" alt="">Cerrar sesión
+                    </ion-item>
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+</ion-split-pane>

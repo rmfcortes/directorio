@@ -1,0 +1,26 @@
+<ion-content>
+    <div class="contenido">
+        <div class="back-icon">
+            <ion-icon name="arrow-back" (click)="regresar()"></ion-icon>
+        </div>
+        <div class="cuadro1">
+            <form class="formulario" (ngSubmit)="verificarUsuario()" action="" #forma="ngForm">
+                Para realizar esta acción necesitas ingresar en tu cuenta.
+
+                <ion-button (click)="loginFace()" style="margin-top: 1rem; --background: #3b5998" expand="block">
+                    <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
+                    Continuar con Facebook
+                </ion-button>
+                <ion-button (click)="loginGoogle()" style="margin-top: 1rem;" expand="block">
+                    <ion-icon class="mr-5" name="logo-google"></ion-icon>
+                    Con Google
+                </ion-button>
+                <ion-button (click)="revisa()" style="margin-top: 1rem" expand="block">
+                    Con correo
+                </ion-button>
+            </form>
+        </div>
+        <div class="cuadro2">
+        </div>
+    </div>
+</ion-content>

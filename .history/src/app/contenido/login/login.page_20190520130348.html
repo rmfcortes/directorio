@@ -1,0 +1,24 @@
+<ion-content>
+    <div class="contenido">
+        <div>
+            <!-- <ion-icon name="arrow-back" (click)="regresar()"></ion-icon> -->
+            <ion-back-button></ion-back-button>
+        </div>
+        <div class="cuadro1">
+            <form class="formulario" (ngSubmit)="verificarUsuario()" action="" #forma="ngForm">
+
+                <ion-button (click)="loginFace()" style="margin-top: 1rem; --background: #3b5998" expand="block">
+                    Con Facebook
+                </ion-button>
+                <ion-button (click)="loginGoogle()" style="margin-top: 1rem" expand="block">
+                    Con Google
+                </ion-button>
+                <ion-button (click)="revisa()" style="margin-top: 1rem" expand="block">
+                    Status
+                </ion-button>
+            </form>
+        </div>
+        <div class="cuadro2">
+        </div>
+    </div>
+</ion-content>

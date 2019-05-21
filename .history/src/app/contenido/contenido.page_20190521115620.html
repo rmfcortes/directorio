@@ -1,0 +1,78 @@
+<ion-split-pane>
+    <ion-menu menuId="menu" [disabled]="menuGeneral" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <img style="height: 2rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-item routerLink="/login" lines="full">
+                <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/login-icon.png" alt=""> Iniciar sesión
+            </ion-item>
+            <ion-list>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item routerLink="/ofertas">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/descuentos.png" alt=""> Ofertas
+                    </ion-item>
+                    <ion-item *ngFor="let cat of categorias" [routerLink]="['/lista', cat]">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/restaurantes.png" alt="">{{cat}}
+                    </ion-item>
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+
+    </ion-menu>
+
+    <ion-menu menuId="menuAccount" [disabled]="menuAccount" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <img style="height: 2rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <div class="container">
+                <ion-img class="img-menu" src="../../assets/images/menu-fondo.png">
+
+                </ion-img>
+                <ion-item class="avatar" lines="none">
+                    <ion-avatar slot="start">
+                        <img [src]="user.foto">
+                    </ion-avatar>
+                    <ion-label color="light">{{user.nombre}}</ion-label>
+                </ion-item>
+            </div>
+            <ion-list>
+                <ion-list-header>
+                    <ion-label>Items</ion-label>
+                </ion-list-header>
+                <ion-item>Item 1</ion-item>
+                <ion-item>Item 2</ion-item>
+                <ion-item>Item 3</ion-item>
+                <ion-item>Item 4</ion-item>
+                <ion-item>Item 5</ion-item>
+            </ion-list>
+            <ion-list>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item routerLink="/ofertas">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/descuentos.png" alt=""> Ofertas
+                    </ion-item>
+                    <ion-item *ngFor="let cat of categorias" [routerLink]="['/lista', cat]">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/restaurantes.png" alt="">{{cat}}
+                    </ion-item>
+
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+
+        <ion-footer>
+            <ion-toolbar>
+                <ion-item (click)="cerrarSesion()" lines="none">
+                    <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/icono-cerrar-sesion-png-6.png" alt="">Cerrar sesión
+                </ion-item>
+            </ion-toolbar>
+        </ion-footer>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+</ion-split-pane>

@@ -1,0 +1,50 @@
+.contenido {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-image: linear-gradient(to bottom right, #ff4f38, #630c01);
+    z-index: 1;
+    display: block;
+}
+
+.cuadro1 {
+    height: 75%;
+    width: 75%;
+    top: 12.5%;
+    left: 12.5%;
+    position: absolute;
+    background-color: transparent;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.cuadro2 {
+    height: 75%;
+    width: 75%;
+    top: 12.5%;
+    left: 12.5%;
+    position: absolute;
+    border-radius: 5px;
+    background-color: white;
+    opacity: 0.90;
+    z-index: 2;
+}
+
+.formulario {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 25%;
+}
+
+.back-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 18pt;
+    color: white;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
