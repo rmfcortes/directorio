@@ -10,7 +10,7 @@
 
 <ion-content>
     <div *ngIf="infoReady">
-        <ion-grid style="margin-top: 2rem" *ngIf="anuncios.length === 0">
+        <ion-grid style="margin-top: 2rem" *ngIf="!hasAnuncios">
             <ion-row style="text-align: center;">
                 <ion-col>
                     <h3 style="color: cornflowerblue">No tienes anuncios publicados</h3>
@@ -21,20 +21,26 @@
                     <ion-img src="../../assets/images/no-results.png"></ion-img>
                 </ion-col>
             </ion-row>
-            <ion-row style="text-align: center;">
-                <ion-col>
-                    <ion-button (click)="presentActionSheet()" expand="block" color="primary">Agregar anuncio</ion-button>
-                </ion-col>
-            </ion-row>
         </ion-grid>
 
-        <ion-list *ngIf="anuncios.length > 0">
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                </ion-avatar>
-                <ion-label>Item Avatar</ion-label>
-            </ion-item>
-        </ion-list>
+        <div *ngIf="hasAnuncios">
+            <ion-list *ngFor="let categoria of categorias; let i = index">
+                <ion-list-header>
+                    <ion-label>{{categoria}}</ion-label>
+                </ion-list-header>
+                <ion-item *ngFor="let anuncio of (anuncios[i] | keyvalue)" detail (click)="presentActionItem(anuncio.value.id)">
+                    <ion-avatar slot="start">
+                        <img [src]="anuncio.value.url[0]">
+                    </ion-avatar>
+                    <ion-label>{{anuncio.value.titulo}}</ion-label>
+                    <ion-note slot="end" style="margin-right: 0.8rem" color="success">$ {{anuncio.value.precio}}</ion-note>
+                </ion-item>
+            </ion-list>f
+        </div>
+        <ion-row style="text-align: center; margin-top: 2rem">
+            <ion-col>
+                <ion-button (click)="checkPermiso()" expand="block" color="primary">Agregar anuncio</ion-button>
+            </ion-col>
+        </ion-row>
     </div>
 </ion-content>
