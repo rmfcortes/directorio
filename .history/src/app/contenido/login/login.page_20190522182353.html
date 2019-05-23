@@ -1,0 +1,44 @@
+<ion-content>
+    <div class="contenido">
+        <div class="back-icon">
+            <ion-icon name="arrow-back" (click)="regresar()"></ion-icon>
+        </div>
+        <div class="cuadro1">
+            <ion-item lines="none" style="margin-bottom: 2.5rem;">
+                <img src="../../assets/images/ubika-logo.png" alt="">
+            </ion-item>
+            <div *ngIf="loginWithEmail">
+                <form #forma="ngForm" (submit)="ingresarConCorreo()">
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Correo</ion-label>
+                        <ion-input [(ngModel)]="correo" type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Contraseña</ion-label>
+                        <ion-input type="password" required [(ngModel)]="pass" name="telefono" minlength="5"></ion-input>
+                    </ion-item>
+                    <ion-button style="margin-top: 2rem" [disabled]="!forma.valid" expand="block" shape="round" type="submit">
+                        Ingresar
+                    </ion-button>
+                </form>
+                <ion-label color="medium">Crear una cuenta.</ion-label>
+            </div>
+            <div *ngIf="!loginWithEmail">
+                <ion-label color="medium">Ingresa a tu cuenta con un click:</ion-label>
+                <ion-button (click)="loginFace()" style="margin-top: 0.5rem; --background: #3b5998" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
+                    Facebook
+                </ion-button>
+                <ion-button (click)="loginGoogle()" style="margin: 1rem 0 1.5rem;" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="logo-google"></ion-icon>
+                    Google
+                </ion-button>
+                <ion-label color="medium">O bien, crea una:</ion-label>
+                <ion-button (click)="loginEmail()" style="margin-top: 0.5rem" color="medium" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="mail"></ion-icon>
+                    Correo y contraseña
+                </ion-button>
+            </div>
+        </div>
+    </div>
+</ion-content>

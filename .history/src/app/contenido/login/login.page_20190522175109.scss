@@ -1,0 +1,40 @@
+.contenido {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: block;
+    background-image: url('../../../assets/images/fondo-login.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.cuadro1 {
+    height: 75%;
+    width: 75%;
+    top: 50%;
+    left: 12.5%;
+    position: absolute;
+    background-color: transparent;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.formulario {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 40%;
+}
+
+.back-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 18pt;
+    color: #ff4f38;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}

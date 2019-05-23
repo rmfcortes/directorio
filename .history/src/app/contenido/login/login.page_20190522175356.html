@@ -1,0 +1,25 @@
+<ion-content>
+    <div class="contenido">
+        <div class="back-icon">
+            <ion-icon name="arrow-back" (click)="regresar()"></ion-icon>
+        </div>
+        <div class="cuadro1">
+            <ion-item lines="none">
+                <img style="height: 5rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+            </ion-item>
+            <ion-label color="danger"> Inicia sesión en 1 click, con:</ion-label>
+            <ion-button (click)="loginFace()" style="margin-top: 0.5rem; --background: #3b5998" expand="block">
+                <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
+                Facebook
+            </ion-button>
+            <ion-button (click)="loginGoogle()" style="margin: 1rem 0 1.5rem;" expand="block">
+                <ion-icon class="mr-5" name="logo-google"></ion-icon>
+                Google
+            </ion-button>
+
+            <ion-button (click)="revisa()" style="margin-top: 0.5rem" color="medium" expand="block">
+                Correo y contraseña
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

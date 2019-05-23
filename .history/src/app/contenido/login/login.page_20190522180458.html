@@ -1,0 +1,26 @@
+<ion-content>
+    <div class="contenido">
+        <div class="back-icon">
+            <ion-icon name="arrow-back" (click)="regresar()"></ion-icon>
+        </div>
+        <div class="cuadro1">
+            <ion-item lines="none" style="margin-bottom: 2.5rem;">
+                <img src="../../assets/images/ubika-logo.png" alt="">
+            </ion-item>
+            <ion-label color="danger">Ingresa a tu cuenta con un click:</ion-label>
+            <ion-button (click)="loginFace()" style="margin-top: 0.5rem; --background: #3b5998" shape="round" expand="block">
+                <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
+                Facebook
+            </ion-button>
+            <ion-button (click)="loginGoogle()" style="margin: 1rem 0 1.5rem;" shape="round" expand="block">
+                <ion-icon class="mr-5" name="logo-google"></ion-icon>
+                Google
+            </ion-button>
+            <ion-label color="danger">O bien crea una:</ion-label>
+            <ion-button (click)="revisa()" style="margin-top: 0.5rem" color="medium" shape="round" expand="block">
+                <ion-icon class="mr-5" name="mail"></ion-icon>
+                Correo y contraseña
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

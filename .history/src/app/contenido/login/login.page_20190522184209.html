@@ -1,0 +1,77 @@
+<ion-content>
+    <div class="contenido">
+        <div class="back-icon">
+            <ion-icon *ngIf="!loginWithEmail && !creaCuenta" name="arrow-back" (click)="regresar()"></ion-icon>
+            <ion-icon *ngIf="loginWithEmail" name="arrow-back" (click)="regresarEmail()"></ion-icon>
+            <ion-icon *ngIf="creaCuenta" name="arrow-back" (click)="regresar()"></ion-icon>
+        </div>
+        <div class="cuadro1">
+            <ion-item *ngIf="loginWithEmail && creaCuenta" lines="none" style="margin-bottom: 2.5rem;">
+                <img src="../../assets/images/ubika-logo.png" alt="">
+            </ion-item>
+
+            <div *ngIf="!loginWithEmail && !creaCuenta">
+                <ion-label color="medium">Ingresa a tu cuenta con un click:</ion-label>
+                <ion-button (click)="loginFace()" style="margin-top: 0.5rem; --background: #3b5998" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
+                    Facebook
+                </ion-button>
+                <ion-button (click)="loginGoogle()" style="margin: 1rem 0 1.5rem;" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="logo-google"></ion-icon>
+                    Google
+                </ion-button>
+                <ion-label color="medium">O bien, crea una:</ion-label>
+                <ion-button (click)="loginEmail()" style="margin-top: 0.5rem" color="medium" shape="round" expand="block">
+                    <ion-icon class="mr-5" name="mail"></ion-icon>
+                    Correo y contraseña
+                </ion-button>
+            </div>
+
+            <div *ngIf="loginWithEmail">
+                <form #forma="ngForm" (submit)="ingresarConCorreo()">
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Correo</ion-label>
+                        <ion-input [(ngModel)]="correo" type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Contraseña</ion-label>
+                        <ion-input type="password" required [(ngModel)]="pass" name="telefono" minlength="5"></ion-input>
+                    </ion-item>
+                    <ion-button style="margin-top: 2rem" [disabled]="!forma.valid" expand="block" shape="round" type="submit">
+                        Ingresar
+                    </ion-button>
+                </form>
+                <ion-label (click)="crearCuentaEmail()" style="margin-top: 1rem; float: right" color="medium">Crear una cuenta.</ion-label>
+            </div>
+
+            <div *ngIf="creaCuenta">
+                <form #formaCuenta="ngForm" (submit)="generarCuenta()">
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Nombre</ion-label>
+                        <ion-input [(ngModel)]="usuario.nombre" type="text" name="nombre" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Teléfono</ion-label>
+                        <ion-input [(ngModel)]="usuario.telefono" type="number" name="telefono" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Correo</ion-label>
+                        <ion-input [(ngModel)]="usuario.correo" type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Contraseña (mínimo 5 caracteres)</ion-label>
+                        <ion-input type="password" required [(ngModel)]="usuario.pass" name="pass" minlength="5"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="medium" position="floating">Confirma contraseña</ion-label>
+                        <ion-input type="password" required [(ngModel)]="usuario.passConfirm" name="passConfirm" minlength="5"></ion-input>
+                    </ion-item>
+                    <ion-button style="margin-top: 2rem" [disabled]="!formaCuenta.valid" expand="block" shape="round" type="submit">
+                        Crear cuenta
+                    </ion-button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</ion-content>
