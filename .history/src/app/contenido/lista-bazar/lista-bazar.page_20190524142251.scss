@@ -1,0 +1,16 @@
+.img-logo {
+    height: 2rem;
+}
+
+.wrapper {
+    display: inline-block;
+    height: 150px;
+    width: 250px;
+    background: lightgray;
+}
+
+.wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

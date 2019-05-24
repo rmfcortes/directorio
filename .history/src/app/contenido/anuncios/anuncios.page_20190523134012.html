@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis anuncios</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="!hasAnuncios">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes anuncios publicados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div *ngIf="hasAnuncios">
+            <ion-list *ngFor="let categoria of categorias; let i = index">
+                <ion-list-header>
+                    <ion-label>{{categoria}}</ion-label>
+                </ion-list-header>
+                <ion-item *ngFor="let anuncio of (anuncios[i] | keyvalue)" detail (click)="presentActionItem(anuncio.value.id)">
+                    <ion-avatar *ngIf="categoria === 'bazar'" slot="start">
+                        <img [src]="anuncio.value.url[0]">
+                    </ion-avatar>
+                    <ion-label *ngIf="categoria === 'bazar'">{{anuncio.value.titulo}}</ion-label>
+                    <ion-note slot="end" style="margin-right: 0.8rem" color="success">$ {{anuncio.value.precio}}</ion-note>
+                    <ion-item *ngIf="categoria === 'empleos'" lines="none">
+                        <p>{{anuncio.value.titulo}}</p>
+                    </ion-item>
+                </ion-item>
+            </ion-list>
+        </div>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="checkPermiso()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </div>
+</ion-content>

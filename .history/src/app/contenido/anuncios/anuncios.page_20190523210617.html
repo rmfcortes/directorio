@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis anuncios</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-segment [(ngModel)]="pagina" (ionChange)="segmentChanged()" value="bazar">
+            <ion-segment-button value="bazar">
+                <ion-label>Bazar</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="empleos">
+                <ion-label>Empleos</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="inmuebles">
+                <ion-label>Inmuebles</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="!hasAnuncios">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes anuncios publicados en esta categoría</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div *ngIf="hasAnuncios">
+            <ion-list>
+                <ion-item *ngFor="let anuncio of anuncios" detail (click)="presentActionItem(anuncio.id)">
+                    <ion-avatar *ngIf="pagina !== 'empleos'" slot="start">
+                        <img [src]="anuncio.url[0]">
+                    </ion-avatar>
+                    <ion-item lines="none">
+                        <p>{{anuncio.titulo}} <br>
+                            <ion-text color="medium" *ngIf="pagina !== 'inmuebles'">{{anuncio.tipoVenta}}</ion-text>
+                            <ion-text color="medium" *ngIf="pagina !== 'empleos'">{{anuncio.empresa}}</ion-text>
+                        </p>
+                    </ion-item>
+                    <ion-note slot="end" style="margin-right: 0.8rem; font-size: 18px" color="success">$ {{anuncio.precio}}</ion-note>
+                </ion-item>
+            </ion-list>
+        </div>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="checkPermiso()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </div>
+</ion-content>
