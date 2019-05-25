@@ -1,0 +1,55 @@
+<ion-header class="mb-15">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Ofertas</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+
+    <ion-toolbar color="primary" *ngIf="categoriaReady">
+        <ion-segment (ionChange)="segmentChanged($event)" value="Destacados" scrollable>
+            <ion-segment-button *ngFor="let product of categorias" [value]="product">
+                {{product}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <div *ngIf="categoriaReady">
+        <div *ngFor="let oferta of ofertas">
+            <ion-img (click)="presentModal(oferta)" class="mb-5" [src]="oferta.foto" alt=""></ion-img>
+            <ion-grid>
+                <ion-row justify-content-center>
+                    <ion-col size="2">
+                        <ion-img class="icono-categoria-card" src="../../assets/images/restaurantes.png" alt=""></ion-img>
+                    </ion-col>
+                    <ion-col size="8">
+                        <ion-row justify-content-center>
+                            <ion-text color="primary">
+                                <h5 class="mt-0">{{oferta.titulo}}</h5>
+                            </ion-text>
+                        </ion-row>
+                        <ion-row justify-content-center>
+                            <ion-label class="text-desc">{{oferta.condiciones}}</ion-label>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-img class="icono-mapa-card" src="../../assets/images/pin-mapa.png" alt=""></ion-img>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <hr>
+    </div>
+
+    <div *ngIf="!categoriaReady">
+        <ion-skeleton-text animated style="width: 100%; height: 150px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="margin-left: 5%; width: 90%; height: 25px"></ion-skeleton-text>
+        <ion-skeleton-text animated style="margin-left: 5%; width: 90%; height: 15px"></ion-skeleton-text>
+    </div>
+
+</ion-content>

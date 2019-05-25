@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Artículos varios</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6" *ngFor="let anuncio of anuncios">
+                <ion-card>
+                    <div style="height: 30% !important">
+                        <div>
+                            <img style="object-fit: contain" [src]="anuncio.url[0]">
+                        </div>
+                        <div style="margin: 0.35rem 0 0.35rem 0.75rem; background:blue">
+                            <ion-card-title color="primary">$ {{anuncio.precio}}</ion-card-title>
+                            <ion-label color="medium" text-wrap>
+                                {{anuncio.titulo}}
+                            </ion-label>
+                        </div>
+                    </div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
