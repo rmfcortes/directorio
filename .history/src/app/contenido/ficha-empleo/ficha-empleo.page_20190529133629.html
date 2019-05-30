@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Detalle de empleo</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container" *ngIf="infoReady">
+        <ion-text color="primary">
+            <h1>{{empleo.titulo}}</h1>
+        </ion-text>
+        <ion-text>
+            <strong>$ {{empleo.precio}} - {{empleo.pago}}</strong>
+        </ion-text> <br>
+        <ion-text color="medium">
+            {{empleo.empresa}} - {{empleo.lugar}}
+        </ion-text> <br>
+        <ion-text color="medium">
+            {{empleo.tiempo}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Descripción</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.descripcion}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Requisitos</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.experienciaIndispensable}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Experiencia deseable</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.experienciaDeseable}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Horario</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.tiempo}}
+        </ion-text> <br>
+        <ion-text>
+            {{empleo.horario}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Descripción</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.descripcion}}
+        </ion-text> <br>
+        <div style="margin: 1rem 0 0 1.5rem">
+            <ion-text color="primary">
+                <strong>Contacto</strong>
+            </ion-text> <br>
+        </div>
+        <ion-text>
+            {{empleo.contacto}}
+        </ion-text> <br>
+        <ion-text>
+            {{empleo.telefono}}
+        </ion-text> <br>
+    </div>
+
+
+</ion-content>
+
+<ion-footer *ngIf="infoReady">
+    <ion-toolbar>
+        <ion-button (click)="llamar()" style="float:right; margin-right: 1rem" color="primary" expand="block">LLAMAR
+            <ion-icon slot="end" name="call"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

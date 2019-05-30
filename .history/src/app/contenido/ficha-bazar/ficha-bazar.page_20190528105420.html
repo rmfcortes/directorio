@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Artículos varios</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-card style="margin: 0 0 0.25rem 0 !important; border-radius: 0 !important">
+            <ion-slides pager="true" [options]="slidesOpts" #slideWithNav>
+                <ion-slide *ngFor="let s of articulo.url">
+                    <img [src]="s">
+                </ion-slide>
+            </ion-slides>
+            <ion-card-header>
+                <ion-card-title>{{articulo.titulo}}</ion-card-title>
+                <ion-card-subtitle>{{articulo.descripcion}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</ion-content>
+
+<ion-footer *ngIf="infoReady">
+    <ion-toolbar>
+        <div style="background: green">
+            <ion-row>
+                <ion-text style="margin-left: 1rem" color="primary">
+                    <h1>$ {{articulo.precio}}</h1>
+                </ion-text>
+                <ion-button style="float: right" color="primary">Llamar</ion-button>
+            </ion-row>
+        </div>
+    </ion-toolbar>
+</ion-footer>

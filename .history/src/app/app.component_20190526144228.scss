@@ -1,0 +1,12 @@
+.container {
+    position: relative;
+}
+
+.avatar {
+    position: absolute;
+    left: 5px;
+    top: 15%;
+    text-align: center;
+    font-size: 18px;
+    --background: transparent;
+}

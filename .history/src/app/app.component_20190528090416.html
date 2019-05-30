@@ -1,0 +1,82 @@
+<ion-app>
+    <ion-split-pane>
+        <ion-menu menuId="menu" side="start">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <img style="height: 2rem" slot="start" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item *ngIf="menuGeneral" routerLink="/login/menu" lines="full">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/login-icon.png" alt=""> Iniciar sesión
+                    </ion-item>
+                </ion-menu-toggle>
+                <div class="container" *ngIf="menuAccount" (click)="muestraOpcionesPerfil = !muestraOpcionesPerfil">
+                    <ion-img class="img-menu" src="../../assets/images/menu-fondo.png">
+                    </ion-img>
+                    <ion-item class="avatar" lines="none">
+                        <ion-avatar slot="start">
+                            <img [src]="user.foto">
+                        </ion-avatar>
+                        <ion-label color="light">{{user.nombre}}</ion-label>
+                        <ion-icon color="light" style="font-size: 35px" *ngIf="!muestraOpcionesPerfil" name="arrow-dropdown"></ion-icon>
+                        <ion-icon color="light" style="font-size: 35px" *ngIf="muestraOpcionesPerfil" name="arrow-dropup"></ion-icon>
+                    </ion-item>
+                </div>
+                <ion-list *ngIf="muestraOpcionesPerfil && menuAccount">
+                    <ion-menu-toggle auto-hide="true">
+                        <ion-item routerLink="/anuncios" lines="full">
+                            <ion-icon style="margin-right: 1rem" color="secondary" name="filing"></ion-icon> Mis anuncios
+                        </ion-item>
+                        <ion-item routerLink="/comentarios" lines="full">
+                            <ion-icon style="margin-right: 1rem" color="warning" name="star"></ion-icon> Mis comentarios
+                        </ion-item>
+                        <ion-item routerLink="/favoritos" lines="full">
+                            <ion-icon style="margin-right: 1rem" color="danger" name="heart"></ion-icon> Favoritos
+                        </ion-item>
+                        <ion-item (click)="cerrarSesion()" lines="none">
+                            <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/icono-cerrar-sesion-png-6.png" alt=""> Cerrar sesión
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>Categorías</ion-label>
+                    </ion-list-header>
+                    <ion-menu-toggle auto-hide="true">
+                        <ion-item routerLink="/ofertas">
+                            <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/descuentos.png" alt=""> Ofertas
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-item (click)="muestraOpcionesClasificados = !muestraOpcionesClasificados">
+                        <img style="height: 1.5rem; margin-right: 1rem" src="../assets/images/logo-segundamano.jpg" alt=""> Clasificados
+                        <ion-icon color="medium" style="font-size: 20px" *ngIf="!muestraOpcionesClasificados" name="arrow-dropdown"></ion-icon>
+                        <ion-icon color="medium" style="font-size: 20px" *ngIf="muestraOpcionesClasificados" name="arrow-dropup"></ion-icon>
+                    </ion-item>
+                    <ion-list *ngIf="muestraOpcionesClasificados">
+                        <ion-menu-toggle auto-hide="true">
+                            <ion-item routerLink="/lista-bazar">
+                                <img style="height: 1.5rem; margin-right: 1rem; margin-left: 1.5rem" src="../assets/images/bazar.png" alt=""> Artículos varios
+                            </ion-item>
+                            <ion-item routerLink="/lista-empleos">
+                                <img style="height: 1.5rem; margin-right: 1rem; margin-left: 1.5rem" src="../assets/images/empleos.png" alt=""> Empleos
+                            </ion-item>
+                            <ion-item routerLink="/inmuebles">
+                                <img style="height: 1.5rem; margin-right: 1rem; margin-left: 1.5rem" src="../assets/images/inmuebles.png" alt=""> Inmuebles
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </ion-list>
+                    <ion-menu-toggle auto-hide="true">
+                        <ion-item *ngFor="let cat of categorias" [routerLink]="['/lista', cat.nombre]">
+                            <img style="height: 1.5rem; margin-right: 1rem" [src]="cat.url" alt="">{{cat.nombre}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+
+        </ion-menu>
+        <ion-router-outlet main></ion-router-outlet>
+    </ion-split-pane>
+</ion-app>

@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Detalle de empleo</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container" *ngIf="infoReady">
+        <ion-text color="primary">
+            <h1>{{empleo.titulo}}</h1>
+        </ion-text> <br>
+        <ion-text>
+            {{empleo.empresa}} - {{empleo.lugar}}
+        </ion-text> <br>
+        <ion-text>
+            $ {{empleo.precio}} - {{empleo.pago}}
+        </ion-text> <br>
+        <ion-text>
+            {{empleo.tiempo}}
+        </ion-text> <br>
+    </div>
+
+
+</ion-content>
