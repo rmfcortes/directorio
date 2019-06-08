@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title slot="start">{{value}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="regresar()">
+                Cerrar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col align-self-center size="6">
+                <ion-item lines="none">
+                    <ion-label color="medium" position="fixed" text-wrap>Apertura</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

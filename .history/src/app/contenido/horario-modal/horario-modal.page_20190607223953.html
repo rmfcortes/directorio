@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title slot="start">{{value}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="regresar()">
+                Cerrar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-radio-group (ionChange)="radioGroupChange($event.detail.value)">
+        <ion-item lines="none">
+            <ion-label>Horario corrido</ion-label>
+            <ion-radio value="true" [checked]="datos.corrido"></ion-radio>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label>Cierre por comida</ion-label>
+            <ion-radio value="false" [checked]="!datos.corrido"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+    <ion-grid>
+        <ion-row>
+            <ion-col align-self-center size="6">
+                <ion-item lines="none">
+                    <ion-label color="primary" position="fixed" text-wrap>Apertura: </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-datetime cancelText="Cancelar" doneText="Aceptar" displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col align-self-center size="6">
+                <ion-item lines="none">
+                    <ion-label color="primary" position="fixed" text-wrap>Cierre: </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-datetime cancelText="Cancelar" doneText="Aceptar" displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="!datos.corrido">
+        <ion-row>
+            <h6 style="margin-left: 1rem">
+                Horario de comida
+            </h6>
+        </ion-row>
+        <ion-row>
+            <ion-col align-self-center size="6">
+                <ion-item lines="none">
+                    <ion-label color="primary" position="fixed" text-wrap>De: </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-datetime cancelText="Cancelar" doneText="Aceptar" displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col align-self-center size="6">
+                <ion-item lines="none">
+                    <ion-label color="primary" position="fixed" text-wrap>A: </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-datetime cancelText="Cancelar" doneText="Aceptar" displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button expand="full" color="primary">Aceptar</ion-button>
+    </ion-toolbar>
+</ion-footer>

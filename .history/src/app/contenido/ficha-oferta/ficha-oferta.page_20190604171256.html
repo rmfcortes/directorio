@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-icon style="font-size: 16pt" (click)="regresar()" name="arrow-round-back"></ion-icon>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Esta oferta ha sido borrada</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="infoReady && !noLongerExist">
+        <ion-card style="margin: 0 0 0.25rem 0 !important; border-radius: 0 !important">
+            <ion-img class="mb-5" [src]="[oferta.foto]" alt=""></ion-img>
+            <ion-card-header>
+                <ion-card-title color="primary">{{oferta.titulo}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{oferta.condiciones}}
+            </ion-card-content>
+        </ion-card>
+
+    </div>
+</ion-content>

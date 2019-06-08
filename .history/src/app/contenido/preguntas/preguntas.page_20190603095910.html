@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis preguntas</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="preguntas.length === 0">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes preguntas publicados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-list class="ion-margin-top" *ngFor="let categoria of categorias">
+            <ion-list-header>
+                <ion-label>{{categoria}}</ion-label>
+            </ion-list-header>
+            <ion-item *ngFor="let item of (preguntas.categoria | keyvalue)" detail (click)="presentOpciones(item)">
+                <div>
+                    <h6 class="mb-5 mt-0 wrap-text">{{item.value.titulo}}</h6>
+                    <div>
+                        <ion-item lines="none">
+                            <ion-label>
+                                <ion-icon name="text"></ion-icon> {{item.value.pregunta.pregunta}}
+                            </ion-label>
+                        </ion-item>
+                        <ion-item lines="none" *ngIf="item.pregunta.respuesta">
+                            <ion-label color="medium">
+                                <ion-icon style="transform: scale(-1, 1);" name="text"></ion-icon> {{item.value.pregunta.respuesta}}
+                            </ion-label>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

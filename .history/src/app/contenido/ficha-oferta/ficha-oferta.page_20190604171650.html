@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Detalles oferta</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Esta oferta ha sido borrada</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="infoReady && !noLongerExist">
+        <ion-card style="margin: 0 0 0.25rem 0 !important; border-radius: 0 !important">
+            <ion-img class="mb-5" [src]="[oferta.foto]" alt=""></ion-img>
+            <ion-card-header>
+                <ion-card-title color="primary">{{oferta.titulo}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{oferta.condiciones}}
+            </ion-card-content>
+            <ion-grid class="linea">
+                <ion-row>
+                    <h6 style="margin-left: 1rem; color: #ff4f38">NEGOCIO</h6>
+                </ion-row>
+                <ion-item lines="none">
+                    <ion-text color="medium">
+                        {{oferta.negocio}} -- {{oferta.telefono}}
+                    </ion-text>
+                </ion-item>
+            </ion-grid>
+        </ion-card>
+
+    </div>
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Favoritos</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-segment (ionChange)="segmentChanged($event)" value="negocios">
+            <ion-segment-button value="negocios">
+                NEGOCIOS
+            </ion-segment-button>
+            <ion-segment-button value="clasificados">
+                CLASIFICADOS
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="favoritos.length === 0">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes negocios guardados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-list class="ion-margin-top">
+            <ion-item *ngFor="let item of favoritos" detail (click)="presentOpciones(item)">
+                <ion-thumbnail slot="start">
+                    <img [src]="item.url">
+                </ion-thumbnail>
+                <div>
+                    <h6 class="mb-5 mt-0 wrap-text">{{item.nombre}}</h6>
+                    <ion-label color="medium" class="negocio-descripcion">{{item.descripcion}}</ion-label>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

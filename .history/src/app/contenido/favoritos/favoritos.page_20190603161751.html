@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Favoritos</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid style="margin-top: 2rem" *ngIf="favoritos.length === 0">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes negocios guardados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/no-results.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div class="ion-margin-top">
+            <ion-list *ngFor="let item of favoritos">
+                <ion-item detail (click)="presentOpciones(item)">
+                    <ion-label>{{item}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <!-- <ion-list *ngFor="let item of favoritos" class="ion-margin-top">
+    
+                    <ion-item detail (click)="presentOpciones(item)" *ngIf="item.categoria !== 'empleos'">
+                        <ion-thumbnail slot="start">
+                            <img [src]="item.url">
+                        </ion-thumbnail>
+                        <div>
+                            <p>
+                                <ion-text style="font-size: 14pt"><strong>{{item.nombre}}</strong></ion-text> <br>
+                                <ion-text color="medium">{{item.descripcion}}</ion-text> <br>
+                            </p>
+                        </div>
+                        <ion-note *ngIf="pagina === 'clasificados'" slot="end" style="margin-right: 0.8rem; font-size: 18px" color="primary">
+                            $ {{item.precio}}
+                        </ion-note>
+                    </ion-item>
+        
+                    <ion-item lines="none" detail (click)="presentOpciones(item)" *ngIf="item.categoria === 'empleos'">
+                        <p>
+                            <ion-text style="font-size: 14pt"><strong>{{item.nombre}}</strong></ion-text> <br>
+                            <ion-text color="medium">{{item.empresa}}</ion-text> <br>
+                        </p>
+                        <ion-note *ngIf="pagina === 'clasificados'" slot="end" style="margin-right: 0.8rem; font-size: 18px" color="primary">
+                            $ {{item.precio}}
+                        </ion-note>
+                    </ion-item>
+        
+                </ion-list> -->
+
+    </div>
+</ion-content>
