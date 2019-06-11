@@ -13,7 +13,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AnunciosService } from 'src/app/services/anuncios.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { HorarioModalPage } from '../horario-modal/horario-modal.page';
-import { CropModalPage } from '../crop-modal/crop-modal.page';
 
 @Component({
   selector: 'app-negocio-form',
@@ -33,8 +32,6 @@ export class NegocioFormPage implements OnInit {
   direccionReady = false;
   horarioReady = false;
   categorias = [];
-  subCategorias = [];
-  subCategoriasReady = false;
 
   negocio: any = {
     fecha: null,
@@ -44,7 +41,6 @@ export class NegocioFormPage implements OnInit {
     telefono: '',
     direccion: '',
     categoria: '',
-    subCategoria: '',
     horario: [
       {dia: 'Lunes', activo: false },
       {dia: 'Martes', activo: false },
@@ -59,15 +55,9 @@ export class NegocioFormPage implements OnInit {
     servicioDomicilio: true,
     url: {},
     rate: 0,
-    preguntas: 0,
-    valoraciones: 0
+    preguntas: 0
   };
 
-  sliderConfig = {
-    slidesPerView: 3.6,
-    spaceBetween: 3,
-    centeredSlides: false
-  };
 
   constructor(
     private location: Location,
@@ -125,16 +115,6 @@ export class NegocioFormPage implements OnInit {
     }
   }
 
-  async getSubCategorias() {
-    this.subCategoriasReady = false;
-    const subCat: any = await this.categoriasService.getsubCategorias(this.negocio.categoria);
-    if (subCat) {
-      this.subCategorias = subCat;
-      console.log(this.categorias);
-      this.subCategoriasReady = true;
-    }
-  }
-
   async presentActionSheet() {
     if (this.subiendoAnuncio) { return; }
     const actionSheet = await this.actionSheetController.create({
@@ -142,7 +122,7 @@ export class NegocioFormPage implements OnInit {
         text: 'Escoge una imagen de tu galería',
         icon: 'images',
         handler: () => {
-            this.agregarImagen();
+            // this.agregarImagen();
         }
       }, {
         text: 'Toma una foto de la cámara',
@@ -162,7 +142,6 @@ export class NegocioFormPage implements OnInit {
   }
 
   async presentActionSheetEditar(foto) {
-    console.log(foto);
     if (this.subiendoAnuncio) { return; }
     this.fotoPorCambiar = foto;
     const actionSheet = await this.actionSheetController.create({
@@ -194,12 +173,12 @@ export class NegocioFormPage implements OnInit {
     this.fotosPreview.splice(this.fotoPorCambiar, 1);
     this.fotosBase64.splice(this.fotoPorCambiar, 1);
     this.fotoPorCambiar = null;
-    if (this.fotosPreview.length === 0) {
+    if (!this.fotosPreview) {
       this.fotosListas = false;
     }
   }
 
-  async agregarImagen() {
+ /*  async agregarImagen() {
     this.options = {
       // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
       // selection of a single image, the plugin will return it.
@@ -211,31 +190,46 @@ export class NegocioFormPage implements OnInit {
       // will be at most 800 pixels wide and 800 pixels tall.  If the width is
       // 800 and height 0 the image will be 800 pixels wide if the source
       // is at least that wide.
-      width: 480,
-      height: 270,
+      width: 600,
+      height: 600,
       // quality of resized image, defaults to 100
       quality: 100,
 
       // window.imagePicker.OutputType.FILE_URI (0) or
       // window.imagePicker.OutputType.BASE64_STRING (1)
-      outputType: 1
+      outputType: 0
     };
     try {
-      let imageData = await this.imagePicker.getPictures(this.options);
-      imageData = 'data:image/jpeg;base64,' + imageData;
-      this.presentModalCrop(imageData);
+      let results = await this.imagePicker.getPictures(this.options);
+      results = 'file://' + results;
+      let newImage = await this.crop.crop(results, {quality: 100});
+      newImage = 'file://' + newImage;
+      const img64 = await this.base64.encodeFile(newImage);
+      const base = img64.split('data:image/*;charset=utf-8;base64,')[1];
+      this.ngZone.run(() => {
+      if (this.fotoPorCambiar || this.fotoPorCambiar === 0) {
+        this.fotosPreview[this.fotoPorCambiar] = img64;
+        this.fotosBase64[this.fotoPorCambiar] = base;
+        this.fotoPorCambiar = null;
+      } else {
+        this.fotosPreview.push(img64);
+        this.fotosBase64.push(base);
+      }
+      this.fotosListas = true;
+      });
+
     } catch (err) {
       alert(err);
     }
   }
-
+ */
 
    async activaCamara() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 480,
-      targetHeight: 270,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 600,
+      targetHeight: 600,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     };
@@ -244,7 +238,7 @@ export class NegocioFormPage implements OnInit {
       imageData = 'data:image/jpeg;base64,' + imageData;
       this.presentModalCrop(imageData);
     } catch (err) {
-      console.log('Error en camara', JSON.stringify(err));
+      console.log('Error en camara', JSON.stringify(err))
     }
 
   }
@@ -291,16 +285,15 @@ export class NegocioFormPage implements OnInit {
 
   async presentModalCrop(imagen) {
     const modal = await this.modalController.create({
-      component: CropModalPage,
+      component: HorarioModalPage,
       cssClass: 'my-custom-modal-css',
       componentProps: { value: imagen }
     });
 
     modal.onDidDismiss().then((img) => {
-      console.log(img.data);
       if (img.data) {
         this.ngZone.run(() => {
-          const base = img.data.split('data:image/jpeg;base64,')[1];
+          const base = img.data.split('data:image/*;charset=utf-8;base64,')[1];
           if (this.fotoPorCambiar || this.fotoPorCambiar === 0) {
             this.fotosPreview[this.fotoPorCambiar] = img.data;
             this.fotosBase64[this.fotoPorCambiar] = base;

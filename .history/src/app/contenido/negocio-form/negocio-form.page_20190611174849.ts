@@ -59,8 +59,7 @@ export class NegocioFormPage implements OnInit {
     servicioDomicilio: true,
     url: {},
     rate: 0,
-    preguntas: 0,
-    valoraciones: 0
+    preguntas: 0
   };
 
   sliderConfig = {
@@ -127,7 +126,7 @@ export class NegocioFormPage implements OnInit {
 
   async getSubCategorias() {
     this.subCategoriasReady = false;
-    const subCat: any = await this.categoriasService.getsubCategorias(this.negocio.categoria);
+    const subCat: any = await this.categoriasService.getCategoriasObject();
     if (subCat) {
       this.subCategorias = subCat;
       console.log(this.categorias);

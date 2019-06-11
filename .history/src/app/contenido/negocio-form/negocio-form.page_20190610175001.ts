@@ -33,8 +33,6 @@ export class NegocioFormPage implements OnInit {
   direccionReady = false;
   horarioReady = false;
   categorias = [];
-  subCategorias = [];
-  subCategoriasReady = false;
 
   negocio: any = {
     fecha: null,
@@ -44,7 +42,6 @@ export class NegocioFormPage implements OnInit {
     telefono: '',
     direccion: '',
     categoria: '',
-    subCategoria: '',
     horario: [
       {dia: 'Lunes', activo: false },
       {dia: 'Martes', activo: false },
@@ -59,8 +56,7 @@ export class NegocioFormPage implements OnInit {
     servicioDomicilio: true,
     url: {},
     rate: 0,
-    preguntas: 0,
-    valoraciones: 0
+    preguntas: 0
   };
 
   sliderConfig = {
@@ -122,16 +118,6 @@ export class NegocioFormPage implements OnInit {
     if (cat) {
       this.categorias = cat;
       console.log(this.categorias);
-    }
-  }
-
-  async getSubCategorias() {
-    this.subCategoriasReady = false;
-    const subCat: any = await this.categoriasService.getsubCategorias(this.negocio.categoria);
-    if (subCat) {
-      this.subCategorias = subCat;
-      console.log(this.categorias);
-      this.subCategoriasReady = true;
     }
   }
 

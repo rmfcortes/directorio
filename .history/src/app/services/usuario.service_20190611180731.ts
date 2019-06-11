@@ -136,6 +136,7 @@ export class UsuarioService {
     const uid = await this.getUid();
     return new Promise(async (resolve, reject) => {
       try {
+        await this.db.object(`valoraciones/${id}/comentarios/${uid}`).remove();
         await this.db.object(`usuarios/${uid}/comentarios/${id}`).remove();
         resolve(true);
       } catch (error) {

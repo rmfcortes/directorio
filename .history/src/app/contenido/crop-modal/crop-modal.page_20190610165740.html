@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="reset()">
+                Reset
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button icon-only (click)="regresar()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+            <ion-button icon-only color="secondary" (click)="save()">
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div sytle="height: 25% !important">
+        <angular-cropper #angularCropper [cropperOptions]="cropperOptions" [imageUrl]="myImage" *ngIf="myImage"></angular-cropper>
+    </div>
+    <ion-grid>
+        <ion-row *ngIf="myImage">
+            <ion-col size="4">
+                <ion-button fill="outline" icon-left color="primary" (click)="zoom(true)">
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="4">
+                <ion-button fill="outline" icon-left color="primary" (click)="zoom(false)">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="4">
+                <ion-button fill="outline" icon-left (click)="rotate()">
+                    <ion-icon name="refresh-circle"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+
+            <ion-col size="3">
+                <ion-button size="small" fill="clear" icon-only (click)="move(0, -10)">
+                    <ion-icon name="arrow-round-up"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3">
+                <ion-button size="small" fill="clear" icon-only (click)="move(0, 10)">
+                    <ion-icon name="arrow-round-down"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3">
+                <ion-button size="small" fill="clear" icon-only (click)="move(-10, 0)">
+                    <ion-icon name="arrow-round-back"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3">
+                <ion-button size="small" fill="clear" icon-only (click)="move(10, 0)">
+                    <ion-icon name="arrow-round-forward"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

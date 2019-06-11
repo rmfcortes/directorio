@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { AgmCoreModule } from '@agm/core';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
-
+import { AngularCropperjsModule } from 'angular-cropperjs';
 
 import { NegocioFormPage } from './negocio-form.page';
 import { HorarioModalPageModule } from '../horario-modal/horario-modal.module';
@@ -29,6 +29,7 @@ const routes: Routes = [
     IonicModule,
     CropModalPageModule,
     HorarioModalPageModule,
+    AngularCropperjsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0',
       libraries: ['places']

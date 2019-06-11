@@ -8,11 +8,12 @@ import { IonicModule } from '@ionic/angular';
 import { AgmCoreModule } from '@agm/core';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
-
+import { Crop } from '@ionic-native/crop/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { AngularCropperjsModule } from 'angular-cropperjs';
 
 import { NegocioFormPage } from './negocio-form.page';
 import { HorarioModalPageModule } from '../horario-modal/horario-modal.module';
-import { CropModalPageModule } from '../crop-modal/crop-modal.module';
 
 
 const routes: Routes = [
@@ -27,8 +28,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    CropModalPageModule,
     HorarioModalPageModule,
+    AngularCropperjsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0',
       libraries: ['places']
@@ -37,6 +38,6 @@ const routes: Routes = [
   ],
   declarations: [NegocioFormPage],
   exports: [NegocioFormPage],
-  providers: [ImagePicker, Camera],
+  providers: [ImagePicker, Camera, Crop, Base64],
 })
 export class NegocioFormPageModule {}
