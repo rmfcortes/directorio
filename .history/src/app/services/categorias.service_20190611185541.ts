@@ -23,7 +23,7 @@ export class CategoriasService {
 
   getsubCategorias(categoria) {
     return new Promise((resolve, reject) => {
-      const catSub = this.db.list(`solo-lectura/negocios/subCategorias/${categoria}`).valueChanges().subscribe(categorias => {
+      const catSub = this.db.list(`solo-lectura/negocios/${categoria}/subCategorias`).valueChanges().subscribe(categorias => {
         catSub.unsubscribe();
         resolve(categorias);
       });

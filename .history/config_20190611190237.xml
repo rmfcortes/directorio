@@ -13,7 +13,6 @@
     <allow-intent href="geo:*" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
-    <preference name="KeyboardResize" value="true" />
     <preference name="KeyboardResizeMode" value="ionic" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />

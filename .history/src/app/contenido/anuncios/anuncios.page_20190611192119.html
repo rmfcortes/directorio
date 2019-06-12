@@ -45,12 +45,11 @@
                     </ion-avatar>
                     <ion-item lines="none">
                         <p>{{anuncio.titulo || anuncio.nombre}} <br>
-                            <ion-text color="medium" *ngIf="pagina === 'negocio'">{{anuncio.categoria}}</ion-text>
                             <ion-text color="medium" *ngIf="pagina === 'inmuebles'">{{anuncio.tipoVenta}}</ion-text>
                             <ion-text color="medium" *ngIf="pagina === 'empleos'">{{anuncio.empresa}}</ion-text>
                         </p>
                     </ion-item>
-                    <ion-note *ngIf="pagina !== 'negocio'" slot="end" style="margin-right: 0.8rem; font-size: 18px" color="success">$ {{anuncio.precio}}</ion-note>
+                    <ion-note slot="end" style="margin-right: 0.8rem; font-size: 18px" color="success">$ {{anuncio.precio}}</ion-note>
                 </ion-item>
             </ion-list>
         </div>
