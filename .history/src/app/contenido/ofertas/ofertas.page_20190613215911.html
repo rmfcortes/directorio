@@ -1,0 +1,66 @@
+<ion-header class="mb-15">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Ofertas</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="presentCategorias()">Filtrar
+                <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-virtual-scroll [items]="ofertas" approxItemHeight="160px">
+        <ion-item *virtualItem="let item">
+            <ion-img [src]="item.url"></ion-img>
+        </ion-item>
+    </ion-virtual-scroll>
+
+    <!--     <div >
+        <ion-grid>
+            <ion-row no-padding>
+                <ion-col *ngFor="let oferta of ofertas; let i = index" size="6" no-padding>
+                    <ion-img [routerLink]="['/ficha-oferta', oferta.key]" class="mb-5" [src]="oferta.url" alt=""></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-button *ngIf="toTop" expand="block" shape="round" (click)="pageScroller()">Regresar al principio</ion-button>
+        <hr>
+    </div> -->
+
+    <ng-template #loading>
+        <ion-row>
+            <ion-col size="6" *ngFor="let anuncio of [1,2,3,4,5,6,7,8]">
+                <div>
+                    <ion-skeleton-text animated style="width: 100%; height: 85px" slot="start"></ion-skeleton-text>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ng-template>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!--     <ion-infinite-scroll *ngIf="filtroActivo; else infiniteFiltro" threshold="100px" (ionInfinite)="loadDataFiltro($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ng-template #infiniteFiltro>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-template> -->
+
+
+
+</ion-content>

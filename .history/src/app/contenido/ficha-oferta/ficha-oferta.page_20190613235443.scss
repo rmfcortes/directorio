@@ -1,0 +1,26 @@
+.linea {
+    width: 100% !important;
+    border-bottom: 3px dotted #c4c4c7;
+    margin-top: 1rem;
+}
+
+.icono-opciones {
+    color: #ff4f38;
+    font-size: 25px;
+    border: 1px solid #ff4f38;
+    padding: .5rem;
+    border-radius: 100%;
+}
+
+.container {
+    height: 100%;
+    position: relative;
+}
+
+.center {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}

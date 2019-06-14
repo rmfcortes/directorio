@@ -1,0 +1,116 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Detalles oferta</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div style="text-align: center;" *ngIf="infoReady && !noLongerExist">
+        <ion-img [src]="[oferta.foto]" alt=""></ion-img>
+        <h3 style="color: #ff4f38">{{oferta.nombreNegocio | uppercase}}</h3>
+        <div class="linea">
+            <div style="text-align: center; width: 80% !important; margin: auto">
+                <h6>PROMOCIÓN</h6>
+                <ion-text color="medium">
+                    {{oferta.promocion}}
+                </ion-text>
+            </div>
+        </div>
+        <div class="linea">
+            <div style="text-align: center; width: 80% !important; margin: auto">
+                <h6>CONDICIONES</h6>
+                <ion-text color="medium">
+                    {{oferta.condiciones}}
+                </ion-text>
+            </div>
+        </div>
+        <div class="linea">
+            <div style="width: 95% !important; margin: auto">
+                <h6>SUCURSALES</h6>
+                <ion-text *ngFor="let sucursal of oferta.sucursales" color="medium">
+                    {{sucursal.nombre}}
+                </ion-text>
+                <ion-icon color="primary" name="information-circle"></ion-icon>
+                <ion-icon color="primary" name="call"></ion-icon>
+                <ion-icon color="primary" name="pin"></ion-icon>
+            </div>
+        </div>
+
+        <ion-grid class="linea">
+            <ion-row style="text-align: center;">
+                <ion-col (click)="llamar()" size="3">
+                    <ion-icon class="icono-opciones" name="call"></ion-icon> <br>
+                    <ion-label style="font-size: 10px" color="primary">LLAMAR</ion-label>
+                </ion-col>
+                <ion-col [routerLink]="['/mapa', 'negocio', oferta.id, true]" size="3">
+                    <ion-icon class="icono-opciones" name="navigate"></ion-icon> <br>
+                    <ion-label style="font-size: 10px" color="primary" text-wrap>CÓMO LLEGAR</ion-label>
+                </ion-col>
+                <ion-col [routerLink]="['/lista', oferta.categoria, oferta.id]" size="3">
+                    <ion-icon class="icono-opciones" name="home"></ion-icon> <br>
+                    <ion-label style="font-size: 10px" color="primary" text-wrap>VER NEGOCIO</ion-label>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-icon (click)="agregarFavorito()" *ngIf="!guardado" class="icono-opciones" name="heart-empty"></ion-icon> <br *ngIf="!guardado">
+                    <ion-label style="font-size: 10px" *ngIf="!guardado" color="primary" text-wrap>GUARDAR</ion-label>
+                    <ion-spinner *ngIf="guardando" color="primary" name="bubbles"></ion-spinner> <br *ngIf="guardando">
+                    <ion-label style="font-size: 10px" *ngIf="guardando" color="primary" text-wrap>GUARDANDO</ion-label>
+                    <ion-icon (click)="borrarFavorito()" *ngIf="guardado" class="icono-opciones" name="heart"></ion-icon> <br *ngIf="guardado">
+                    <ion-label style="font-size: 10px" *ngIf="guardado" color="primary" text-wrap>FAVORITO</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="linea">
+            <ion-row>
+                <h6 style="margin-left: 1rem; color: #ff4f38">NEGOCIO</h6>
+            </ion-row>
+            <ion-item lines="none">
+                <ion-text>
+                    {{oferta.negocio}} <br>
+                    <ion-label color="medium">
+                        <ion-icon style="margin-right: 0.5rem" slot="start" name="call"></ion-icon>{{oferta.telefono}}</ion-label>
+                </ion-text>
+            </ion-item>
+        </ion-grid>
+    </div>
+
+    <div *ngIf="!infoReady" class="container">
+        <div class="center">
+            <ion-spinner color="primary" name="dots"></ion-spinner>
+        </div>
+    </div>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="error">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Lo sentimos, pero no pudimos obtener la información</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">La oferta que buscas ha sido borrada</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/borrado.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
