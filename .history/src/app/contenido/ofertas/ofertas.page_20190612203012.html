@@ -1,0 +1,55 @@
+<ion-header class="mb-15">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Ofertas</ion-title>
+        <img slot="end" class="img-logo" src="../../assets/images/ubika-logo.png" alt="">
+    </ion-toolbar>
+
+    <ion-toolbar color="primary" *ngIf="categoriaReady">
+        <ion-segment (ionChange)="segmentChanged($event.detail.value)" value="recomendadas" scrollable>
+            <ion-segment-button value="recomendadas">
+                RECOMENDADAS
+            </ion-segment-button>
+            <ion-segment-button value="categorias">
+                <ion-row>
+                    CATEGORIAS
+                    <ion-icon style="font-size: 20px" name="arrow-dropdown"></ion-icon>
+                </ion-row>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <div *ngIf="categoriaReady; else loading" style="margin-top: 0">
+        <ion-grid>
+            <ion-row no-padding>
+                <ion-col *ngFor="let oferta of ofertas | async" size="6" no-padding>
+                    <ion-img [routerLink]="['/ficha-oferta', oferta.key]" class="mb-5" [src]="oferta.url" alt=""></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-button *ngIf="toTop" expand="block" shape="round" (click)="pageScroller()">Regresar al principio</ion-button>
+        <hr>
+    </div>
+
+    <ng-template #loading>
+        <ion-row no-padding>
+            <ion-col size="6" *ngFor="let anuncio of [1,2,3,4,5,6,7,8]" no-padding>
+                <div>
+                    <ion-skeleton-text animated style="width: 100%; height: 150px" slot="start"></ion-skeleton-text>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ng-template>
+
+    <!--     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+
+</ion-content>
