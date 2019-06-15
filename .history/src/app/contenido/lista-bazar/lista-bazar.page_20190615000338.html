@@ -1,0 +1,74 @@
+<ion-header class="mb-15">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Ofertas</ion-title>
+        <ion-buttons slot="end" *ngIf="pagina === 'bazar'">
+            <ion-button (click)="presentCategorias()">Filtrar
+                <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #pageTop>
+    <div *ngIf="infoReady">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let anuncio of anuncios" (click)="detallesAnuncio(anuncio)">
+                    <ion-card>
+                        <div>
+                            <div>
+                                <img [src]="anuncio.url">
+                            </div>
+                            <div style="height: 38px; margin: 0.35rem 0 0.35rem 0.75rem">
+                                <ion-card-title style="font-size: 12pt" color="primary">{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-card-title>
+                                <ion-label color="medium " text-wrap>
+                                    {{anuncio.titulo}}
+                                </ion-label>
+                            </div>
+                        </div>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <ion-grid *ngIf="!infoReady">
+        <ion-row>
+            <ion-col size="6" *ngFor="let anuncio of [1,2,3,4,5,6,7,8]">
+                <ion-card>
+                    <div>
+                        <ion-skeleton-text animated style="width: 100%; height: 150px" slot="start"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 80%; height: 15px"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 80%; height: 5px"></ion-skeleton-text>
+                    </div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-fab *ngIf="infoReady" vertical="bottom" horizontal="start" slot="fixed">
+    </ion-fab>
+    <ion-fab *ngIf="infoReady" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="presentAlertConfirm()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-infinite-scroll *ngIf="filtroActivo; else infiniteFiltro" threshold="100px" (ionInfinite)="loadDataFiltro($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ng-template #infiniteFiltro>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-template>
+
+</ion-content>
