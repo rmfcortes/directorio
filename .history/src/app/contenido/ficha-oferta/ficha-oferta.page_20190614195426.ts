@@ -49,6 +49,7 @@ export class FichaOfertaPage implements OnInit {
       this.activedRoute.params.subscribe(async (data) => {
         const id = data['id'];
         this.oferta = await this.ofertaService.getOferta(id);
+        console.log(this.oferta);
         if (!this.oferta) {
           this.noLongerExist = true;
           return;
@@ -66,20 +67,24 @@ export class FichaOfertaPage implements OnInit {
       this.guardado = false;
       return;
     } else {
-      this.uid = await this.uidService.getUid();
-      const isFavorito = Object.keys(this.oferta.seguidores).filter(seguidor => seguidor === this.uid);
+      const uid = await this.uidService.getUid();
+      const isFavorito = Object.keys(this.oferta.seguidores).filter(seguidor => seguidor === uid);
       if (isFavorito.length > 0) {
         this.guardado = true;
       } else {
-        const toSave =  await this.variableService.getSave();
-        if (toSave) {
-          this.agregarFavorito();
-        } else {
-          this.guardado = false;
-        }
+        const toSave = await this.getVariable();
+        console.log(toSave);
+        this.guardado = false;
       }
     }
     this.infoReady = true;
+  }
+
+  async getVariable() {
+    return new Promise(async (resolve, reject) => {
+      const resp = await this.variableService.getSave();
+      resolve(resp);
+    });
   }
 
   llamar(telefono) {
@@ -91,8 +96,8 @@ export class FichaOfertaPage implements OnInit {
   async agregarFavorito() {
     if (this.guardando) { return; }
     if (!this.uid) {
-      this.variableService.setSave(true);
-      this.router.navigate(['/login', 'menu', 'favorito']);
+      console.log(this.uid);
+      this.presentAlertMustBeLogin();
       return;
     }
     if (this.guardado) { return; }
@@ -103,7 +108,6 @@ export class FichaOfertaPage implements OnInit {
     };
     try {
       await this.usuarioService.guardarOfertaFavorita(favorito);
-      this.variableService.setSave(false);
       this.guardando = false;
       this.guardado = true;
       this.presentToast('Oferta guardada');
@@ -121,6 +125,30 @@ export class FichaOfertaPage implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async presentAlertMustBeLogin() {
+    const alert = await this.alertController.create({
+      header: 'Debes estar registrado para agregar ofertas a tu sección de Favoritos',
+      message: 'Pero no te preocupes, es muy sencillo. Te redigiremos para eligas la opción más sencilla y conveniente para ti',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/login', 'menu']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async presentAlert(i) {

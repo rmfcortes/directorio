@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
         if (this.categoria === 'menu') {
           this.accion = 'menu';
           if (this.id === 'favorito') {
-            this.mensaje = 'Inicia sesión para sincronizar tus negocios, ofertas y anuncios favoritos en todos tus dispositivos ' +
+            this.mensaje = 'Inicia sesión para sincronizar tus artículos y anuncios favoritos en todos tus dispositivo' +
                             'y no perderlos nunca';
           }
           return;

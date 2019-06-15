@@ -49,6 +49,7 @@ export class FichaOfertaPage implements OnInit {
       this.activedRoute.params.subscribe(async (data) => {
         const id = data['id'];
         this.oferta = await this.ofertaService.getOferta(id);
+        console.log(this.oferta);
         if (!this.oferta) {
           this.noLongerExist = true;
           return;
@@ -66,12 +67,13 @@ export class FichaOfertaPage implements OnInit {
       this.guardado = false;
       return;
     } else {
-      this.uid = await this.uidService.getUid();
-      const isFavorito = Object.keys(this.oferta.seguidores).filter(seguidor => seguidor === this.uid);
+      const uid = await this.uidService.getUid();
+      const isFavorito = Object.keys(this.oferta.seguidores).filter(seguidor => seguidor === uid);
       if (isFavorito.length > 0) {
         this.guardado = true;
       } else {
         const toSave =  await this.variableService.getSave();
+        console.log(toSave);
         if (toSave) {
           this.agregarFavorito();
         } else {
@@ -91,6 +93,7 @@ export class FichaOfertaPage implements OnInit {
   async agregarFavorito() {
     if (this.guardando) { return; }
     if (!this.uid) {
+      console.log(this.uid);
       this.variableService.setSave(true);
       this.router.navigate(['/login', 'menu', 'favorito']);
       return;
@@ -103,7 +106,6 @@ export class FichaOfertaPage implements OnInit {
     };
     try {
       await this.usuarioService.guardarOfertaFavorita(favorito);
-      this.variableService.setSave(false);
       this.guardando = false;
       this.guardado = true;
       this.presentToast('Oferta guardada');

@@ -29,7 +29,8 @@ export class LoginPage implements OnInit {
   loginWithEmail = false;
   creaCuenta = false;
 
-  mensaje: string;
+  mensaje = 'Inicia sesión para sincronizar tus artículos y anuncios favoritos en todos tus dispositivo' +
+            'y no perderlos nunca';
 
   constructor(private authService: AuthService,
               private activedRoute: ActivatedRoute,
@@ -45,15 +46,11 @@ export class LoginPage implements OnInit {
     this.activedRoute.params.subscribe(data => {
       if (data) {
         this.categoria = data['categoria'];
-        this.id = data['id'];
         if (this.categoria === 'menu') {
           this.accion = 'menu';
-          if (this.id === 'favorito') {
-            this.mensaje = 'Inicia sesión para sincronizar tus negocios, ofertas y anuncios favoritos en todos tus dispositivos ' +
-                            'y no perderlos nunca';
-          }
           return;
         }
+        this.id = data['id'];
         this.accion = data['accion'];
         this.calificacion = data['calificacion'];
       }

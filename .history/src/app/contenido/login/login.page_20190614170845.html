@@ -6,19 +6,19 @@
             <ion-icon *ngIf="creaCuenta" name="arrow-back" (click)="regresarCuenta()"></ion-icon>
         </div>
         <div>
-            <ion-item class="img" *ngIf="!creaCuenta" lines="none">
+            <ion-item *ngIf="!creaCuenta" lines="none" style="margin-bottom: 2.5rem; width: 70% !important; height: auto;">
                 <img src="../../assets/images/login-fondo.jpg" alt="">
             </ion-item>
 
-            <div class="botones" *ngIf="!loginWithEmail && !creaCuenta">
-                <ion-label color="medium">{{mensaje}}</ion-label>
+            <div *ngIf="!loginWithEmail && !creaCuenta">
+                <ion-label color="medium">Ingresa a tu cuenta con un click:</ion-label>
                 <ion-button (click)="loginFace()" style="margin-top: 0.5rem; --background: #3b5998" shape="round" expand="block">
                     <ion-icon class="mr-5" name="logo-facebook"></ion-icon>
-                    CONTINUAR
+                    Facebook
                 </ion-button>
                 <ion-button (click)="loginGoogle()" style="margin: 1rem 0 1.5rem;" shape="round" expand="block">
                     <ion-icon class="mr-5" name="logo-google"></ion-icon>
-                    CONTINUAR
+                    Google
                 </ion-button>
                 <ion-label color="medium">O bien, crea una:</ion-label>
                 <ion-button (click)="loginEmail()" style="margin-top: 0.5rem" color="medium" shape="round" expand="block">
