@@ -112,7 +112,7 @@ export class ListaBazarPage implements OnInit {
   }
 
   getAnuncios() {
-    const anunSub = this.bazarService.getAnuncios(this.batch + 1, this.seccion).valueChanges()
+    const anunSub = this.bazarService.getAnuncios(this.batch + 1).valueChanges()
       .subscribe(async (anuncios: any) => {
         anunSub.unsubscribe();
         if (anuncios) {
@@ -136,7 +136,7 @@ export class ListaBazarPage implements OnInit {
 
   async getAnunciosFiltrados() {
     return new Promise((resolve, reject) => {
-      const s = this.bazarService.getAnunciosFiltrados(this.batch + 1, this.categoria, this.seccion).valueChanges()
+      const s = this.bazarService.getAnunciosFiltrados(this.batch + 1, this.categoria).valueChanges()
         .subscribe((anuncios: any) => {
           s.unsubscribe();
           if (anuncios) {
@@ -255,7 +255,7 @@ export class ListaBazarPage implements OnInit {
 
   detallesAnuncio(anuncio) {
     if (this.pagina === 'bazar') {
-      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id]);
+      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id, anuncio.categoria]);
     } else if (this.pagina === 'inmuebles') {
       this.router.navigate(['/ficha-bazar', 'inmuebles', anuncio.id]);
     }

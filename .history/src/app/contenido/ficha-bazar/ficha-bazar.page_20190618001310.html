@@ -13,20 +13,20 @@
 <ion-content>
     <div class="relative">
         <ion-img class="topleft" (click)="regresar()" src="../../assets/images/back.png" alt=""></ion-img>
-
-        <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
-            <ion-row style="text-align: center;">
-                <ion-col>
-                    <h3 style="color: #ff4f38">Este anuncio ha sido borrado</h3>
-                </ion-col>
-            </ion-row>
-            <ion-row style="text-align: center;">
-                <ion-col>
-                    <ion-img src="../../assets/images/oops.jpg"></ion-img>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
     </div>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Este anuncio ha sido borrado</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
     <div *ngIf="infoReady && !noLongerExist">
         <ion-card style="margin: 0 0 0.25rem 0 !important; border-radius: 0 !important">

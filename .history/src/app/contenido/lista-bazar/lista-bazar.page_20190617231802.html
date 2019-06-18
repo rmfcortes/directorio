@@ -10,6 +10,9 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>

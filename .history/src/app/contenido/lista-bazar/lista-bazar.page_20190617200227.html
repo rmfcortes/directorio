@@ -3,20 +3,22 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Bazar</ion-title>
+        <ion-title>Ofertas</ion-title>
         <ion-buttons slot="end" *ngIf="pagina === 'bazar'">
             <ion-button (click)="presentCategorias()">Filtrar
                 <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>
     <div *ngIf="infoReady && !contactUs">
         <ion-list>
-            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
-                <ion-ripple-effect></ion-ripple-effect>
+            <ion-item *ngFor="let anuncio of anuncios" (click)="detallesAnuncio(anuncio)" lines="full">
                 <ion-thumbnail slot="start">
                     <ion-img [src]="anuncio.url"></ion-img>
                 </ion-thumbnail>

@@ -100,7 +100,7 @@ export class ClasificadosService {
   // Preguntas
 
   getPreguntas(id) {
-    return this.db.list(`solo-lectura/preguntas/${id}`).valueChanges();
+    return this.db.list(`solo-lectura/anuncios/preguntas/${id}`).valueChanges();
 }
 
 }

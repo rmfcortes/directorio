@@ -155,6 +155,7 @@ export class FichaBazarPage implements OnInit, OnDestroy {
         titulo: this.articulo.titulo,
         pregunta: comentario,
         categoria: 'bazar',
+        subCategoria: this.articulo.categoria
       };
     }
     try {

@@ -44,11 +44,11 @@ export class OfertasService {
 
   getCatOfertas() {
     return new Promise((resolve, reject) => {
-      const catOfSub = this.db.object(`solo-lectura/ofertas/categorias-ofertas`).valueChanges().subscribe(categorias => {
+      const catOfSub = this.db.list(`solo-lectura/ofertas/categorias-ofertas`).valueChanges().subscribe(categorias => {
         catOfSub.unsubscribe();
         console.log(categorias);
         if (categorias) {
-          resolve(Object.keys(categorias));
+          resolve(categorias);
         } else {
           resolve(false);
         }

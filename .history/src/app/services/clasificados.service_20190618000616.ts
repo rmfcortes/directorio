@@ -84,12 +84,12 @@ export class ClasificadosService {
   // Empleos
 
   getEmpleos() {
-    return this.db.list('solo-lectura/anuncios/empleos').valueChanges();
+    return this.db.list('anuncios/empleos').valueChanges();
   }
 
   getEmpleo(id) {
     return new Promise(async (resolve, reject) => {
-      const empleoSub =  this.db.object(`solo-lectura/anuncios/empleos-detalles/${id}`).valueChanges()
+      const empleoSub =  this.db.object(`/anuncios/empleos/${id}`).valueChanges()
         .subscribe(articulo => {
           empleoSub.unsubscribe();
           resolve(articulo);
@@ -100,7 +100,7 @@ export class ClasificadosService {
   // Preguntas
 
   getPreguntas(id) {
-    return this.db.list(`solo-lectura/preguntas/${id}`).valueChanges();
+    return this.db.list(`solo-lectura/anuncios/preguntas/${id}`).valueChanges();
 }
 
 }

@@ -3,47 +3,61 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Bazar</ion-title>
+        <ion-title>Ofertas</ion-title>
         <ion-buttons slot="end" *ngIf="pagina === 'bazar'">
             <ion-button (click)="presentCategorias()">Filtrar
                 <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>
     <div *ngIf="infoReady && !contactUs">
-        <ion-list>
-            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
-                <ion-ripple-effect></ion-ripple-effect>
-                <ion-thumbnail slot="start">
-                    <ion-img [src]="anuncio.url"></ion-img>
-                </ion-thumbnail>
-                <div>
-                    <h4 text-wrap>{{anuncio.titulo}}</h4>
-                    <ion-label color="primary" class="negocio-descripcion"><strong>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong></ion-label>
-                </div>
-            </ion-item>
-        </ion-list>
+            <ion-list>
+                <ion-item *ngFor="let anuncio of anuncios" (click)="detallesAnuncio(anuncio)">
+                    <ion-thumbnail slot="start">
+                        <ion-img [src]="anuncio.url"></ion-img>
+                    </ion-thumbnail>
+                    <ion-label>{{anuncio.titulo}}</ion-label>
+                    <ion-label>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+                </ion-item>
+            </ion-list>
     </div>
+<!--     <div *ngIf="infoReady && !contactUs">
+        <ion-grid>
+            <ion-row no-padding>
+                <ion-col no-padding size="6" *ngFor="let anuncio of anuncios" (click)="detallesAnuncio(anuncio)">
+                    <div class="cell">
+                        <ion-img [src]="anuncio.url"></ion-img>
+                        <div style="max-width: 40vw !important; margin-left: .5rem">
+                            <h6 class="wrap-text" style="margin: 0">{{anuncio.titulo}}</h6>
+                        </div>
+                        <div style="max-width: 40vw !important; margin: 0 .5rem 0 .5rem">
+                            <h3 class="wrap-text" style="color: #ff4f38; margin: 0"><strong>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong></h3>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div> -->
 
-    <div *ngIf="!infoReady">
-        <ion-item *ngFor="let item of [1,2,3]">
-            <ion-skeleton-text animated style="width: 40vw; height: 40vw" slot="start"></ion-skeleton-text>
-            <ion-label>
-                <h3>
-                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                </h3>
-                <p>
-                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                </p>
-                <p>
-                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                </p>
-            </ion-label>
-        </ion-item>
-    </div>
+    <ion-grid *ngIf="!infoReady">
+        <ion-row>
+            <ion-col size="6" *ngFor="let anuncio of [1,2,3,4,5,6,7,8]">
+                <ion-card>
+                    <div>
+                        <ion-skeleton-text animated style="width: 100%; height: 150px" slot="start"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 80%; height: 15px"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 80%; height: 5px"></ion-skeleton-text>
+                    </div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ion-fab *ngIf="infoReady && !contactUs" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="agregarAnuncio()">
             <ion-icon name="add"></ion-icon>

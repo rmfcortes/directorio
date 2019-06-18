@@ -64,6 +64,7 @@ export class OfertasPage implements OnInit {
               this.noMore = true;
             }
             this.ofertas = ofertas.reverse();
+            console.log(this.ofertas);
             this.categoriaReady = true;
             this.hasOfertas = true;
             resolve();
@@ -78,9 +79,9 @@ export class OfertasPage implements OnInit {
     return new Promise((resolve, reject) => {
       const s = this.ofertaService.getOfertasFiltradas(this.batch + 1, this.categoria).valueChanges()
         .subscribe((ofertas: any) => {
-          console.log(ofertas);
           s.unsubscribe();
           if (ofertas) {
+            console.log(ofertas);
             this.lastKey = ofertas[0].key;
             if (ofertas.length === this.batch + 1) {
               ofertas.shift();
@@ -88,6 +89,8 @@ export class OfertasPage implements OnInit {
               this.noMore = true;
             }
             this.ofertas = ofertas.reverse();
+            console.log(this.ofertas);
+            console.log(this.lastKey);
             this.categoriaReady = true;
             this.hasOfertas = true;
             resolve();
@@ -157,6 +160,7 @@ export class OfertasPage implements OnInit {
             this.noMore = true;
           }
           this.ofertas = this.ofertas.concat(ofertas.reverse());
+          console.log(this.ofertas);
         }
       });
 
@@ -171,6 +175,7 @@ export class OfertasPage implements OnInit {
 
   loadDataFiltro(event) {
     this.toTop = true;
+    console.log(this.noMore);
     if (this.noMore) {
       event.target.disabled = true;
       event.target.complete();
@@ -181,6 +186,9 @@ export class OfertasPage implements OnInit {
         s.unsubscribe();
         if (ofertas) {
           this.lastKey = ofertas[0].key;
+          console.log(ofertas);
+          console.log(ofertas.length);
+          console.log(this.lazyBatch + 1);
           if (ofertas.length === this.lazyBatch + 1) {
             ofertas.shift();
           } else {

@@ -78,7 +78,6 @@ export class OfertasPage implements OnInit {
     return new Promise((resolve, reject) => {
       const s = this.ofertaService.getOfertasFiltradas(this.batch + 1, this.categoria).valueChanges()
         .subscribe((ofertas: any) => {
-          console.log(ofertas);
           s.unsubscribe();
           if (ofertas) {
             this.lastKey = ofertas[0].key;

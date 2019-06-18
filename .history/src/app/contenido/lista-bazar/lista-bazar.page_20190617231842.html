@@ -10,6 +10,9 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>
@@ -17,7 +20,7 @@
         <ion-list>
             <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
                 <ion-ripple-effect></ion-ripple-effect>
-                <ion-thumbnail slot="start">
+                <ion-thumbnail slot="start" class="ion-activatable">
                     <ion-img [src]="anuncio.url"></ion-img>
                 </ion-thumbnail>
                 <div>

@@ -60,10 +60,9 @@ export class OfertasPage implements OnInit {
             this.lastKey = ofertas[0].key;
             if (ofertas.length === this.batch + 1) {
               ofertas.shift();
-            } else {
-              this.noMore = true;
             }
             this.ofertas = ofertas.reverse();
+            console.log(this.ofertas);
             this.categoriaReady = true;
             this.hasOfertas = true;
             resolve();
@@ -78,16 +77,15 @@ export class OfertasPage implements OnInit {
     return new Promise((resolve, reject) => {
       const s = this.ofertaService.getOfertasFiltradas(this.batch + 1, this.categoria).valueChanges()
         .subscribe((ofertas: any) => {
-          console.log(ofertas);
           s.unsubscribe();
           if (ofertas) {
+            console.log(ofertas);
             this.lastKey = ofertas[0].key;
             if (ofertas.length === this.batch + 1) {
               ofertas.shift();
-            } else {
-              this.noMore = true;
             }
             this.ofertas = ofertas.reverse();
+            console.log(this.ofertas);
             this.categoriaReady = true;
             this.hasOfertas = true;
             resolve();
@@ -151,12 +149,13 @@ export class OfertasPage implements OnInit {
         s.unsubscribe();
         if (ofertas) {
           this.lastKey = ofertas[0].key;
-          if (ofertas.length === this.lazyBatch + 1) {
-            ofertas.shift();
-          } else {
+          if (ofertas.length < this.lazyBatch + 1) {
             this.noMore = true;
+          } else {
+            ofertas.shift();
           }
           this.ofertas = this.ofertas.concat(ofertas.reverse());
+          console.log(this.ofertas);
         }
       });
 
@@ -181,10 +180,10 @@ export class OfertasPage implements OnInit {
         s.unsubscribe();
         if (ofertas) {
           this.lastKey = ofertas[0].key;
-          if (ofertas.length === this.lazyBatch + 1) {
-            ofertas.shift();
-          } else {
+          if (ofertas.length < this.lazyBatch + 1) {
             this.noMore = true;
+          } else {
+            ofertas.shift();
           }
           this.ofertas = this.ofertas.concat(ofertas.reverse());
           console.log(this.ofertas);

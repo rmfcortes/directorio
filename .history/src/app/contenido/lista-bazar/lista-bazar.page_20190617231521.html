@@ -10,17 +10,20 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>
     <div *ngIf="infoReady && !contactUs">
         <ion-list>
-            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
+            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable">
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-thumbnail slot="start">
                     <ion-img [src]="anuncio.url"></ion-img>
                 </ion-thumbnail>
-                <div>
+                <div >
                     <h4 text-wrap>{{anuncio.titulo}}</h4>
                     <ion-label color="primary" class="negocio-descripcion"><strong>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong></ion-label>
                 </div>

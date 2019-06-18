@@ -255,7 +255,7 @@ export class ListaBazarPage implements OnInit {
 
   detallesAnuncio(anuncio) {
     if (this.pagina === 'bazar') {
-      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id]);
+      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id, anuncio.categoria]);
     } else if (this.pagina === 'inmuebles') {
       this.router.navigate(['/ficha-bazar', 'inmuebles', anuncio.id]);
     }

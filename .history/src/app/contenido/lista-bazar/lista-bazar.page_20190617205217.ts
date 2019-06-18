@@ -43,7 +43,6 @@ export class ListaBazarPage implements OnInit {
   infoReady = false;
   ruta: string;
   pagina: string;
-  seccion: string;
 
   ngOnInit() {
   }
@@ -57,17 +56,16 @@ export class ListaBazarPage implements OnInit {
       this.pagina = data['clasificados'];
       if (this.pagina === 'bazar') {
         this.ruta = '/bazar-form/nuevo';
-        this.seccion = 'bazar';
+        this.getCategorias();
       } else if (this.pagina === 'inmuebles') {
         this.ruta = '/inmuebles-form/nuevo';
-        this.seccion = 'inmuebles';
+        this.getInmuebles();
       }
-      this.getCategorias();
     });
   }
 
   async getCategorias() {
-    const cat: any = await this.bazarService.getCatBazar(this.seccion);
+    const cat: any = await this.bazarService.getCatBazar();
     if (cat) {
       this.categorias = cat;
       await this.getButtons();
@@ -112,7 +110,7 @@ export class ListaBazarPage implements OnInit {
   }
 
   getAnuncios() {
-    const anunSub = this.bazarService.getAnuncios(this.batch + 1, this.seccion).valueChanges()
+    const anunSub = this.bazarService.getAnuncios(this.batch + 1).valueChanges()
       .subscribe(async (anuncios: any) => {
         anunSub.unsubscribe();
         if (anuncios) {
@@ -136,7 +134,7 @@ export class ListaBazarPage implements OnInit {
 
   async getAnunciosFiltrados() {
     return new Promise((resolve, reject) => {
-      const s = this.bazarService.getAnunciosFiltrados(this.batch + 1, this.categoria, this.seccion).valueChanges()
+      const s = this.bazarService.getAnunciosFiltrados(this.batch + 1, this.categoria).valueChanges()
         .subscribe((anuncios: any) => {
           s.unsubscribe();
           if (anuncios) {
@@ -155,6 +153,22 @@ export class ListaBazarPage implements OnInit {
           this.hasAnuncios = false;
           resolve();
         });
+    });
+  }
+
+  getInmuebles() {
+    const anunSub = this.bazarService.getInmuebles().subscribe((inmuebles: any) => {
+      anunSub.unsubscribe();
+      if (inmuebles) {
+        this.hasAnuncios = true;
+        this.anuncios = inmuebles;
+        console.log(this.anuncios);
+        this.infoReady = true;
+      } else {
+        this.infoReady = true;
+        this.anuncios = [];
+        this.hasAnuncios = false;
+      }
     });
   }
 
@@ -255,7 +269,7 @@ export class ListaBazarPage implements OnInit {
 
   detallesAnuncio(anuncio) {
     if (this.pagina === 'bazar') {
-      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id]);
+      this.router.navigate(['/ficha-bazar', 'bazar', anuncio.id, anuncio.categoria]);
     } else if (this.pagina === 'inmuebles') {
       this.router.navigate(['/ficha-bazar', 'inmuebles', anuncio.id]);
     }

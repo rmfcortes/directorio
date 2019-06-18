@@ -3,34 +3,52 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Bazar</ion-title>
+        <ion-title>Ofertas</ion-title>
         <ion-buttons slot="end" *ngIf="pagina === 'bazar'">
             <ion-button (click)="presentCategorias()">Filtrar
                 <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="infoReady">
+        <ion-searchbar placeholder="Ropa, celuares, coches..." debounce="500"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content #pageTop>
     <div *ngIf="infoReady && !contactUs">
         <ion-list>
-            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
-                <ion-ripple-effect></ion-ripple-effect>
+            <ion-item *ngFor="let anuncio of anuncios" (click)="detallesAnuncio(anuncio)" lines="full">
                 <ion-thumbnail slot="start">
                     <ion-img [src]="anuncio.url"></ion-img>
                 </ion-thumbnail>
                 <div>
-                    <h4 text-wrap>{{anuncio.titulo}}</h4>
-                    <ion-label color="primary" class="negocio-descripcion"><strong>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong></ion-label>
+                    <h6 text-wrap>{{anuncio.titulo}}</h6>
+                    <ion-label color="primary" class="negocio-descripcion">{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
                 </div>
             </ion-item>
         </ion-list>
     </div>
 
     <div *ngIf="!infoReady">
-        <ion-item *ngFor="let item of [1,2,3]">
-            <ion-skeleton-text animated style="width: 40vw; height: 40vw" slot="start"></ion-skeleton-text>
+        <ion-item>
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
             <ion-label>
                 <h3>
                     <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>

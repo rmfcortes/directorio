@@ -75,7 +75,7 @@ export class FichaBazarPage implements OnInit, OnDestroy {
       }
       this.articulo = anuncio;
       if (anuncio.preguntas > 0) {
-        this.preguntasSub = this.bazarService.getPreguntas(id).subscribe(preguntas => {
+        this.preguntasSub = this.bazarService.getPreguntas(id, clasificado).subscribe(preguntas => {
           this.preguntas = preguntas;
           this.preguntas.sort((a, b) => a.fecha - b.fecha);
           console.log(this.preguntas);
@@ -155,6 +155,7 @@ export class FichaBazarPage implements OnInit, OnDestroy {
         titulo: this.articulo.titulo,
         pregunta: comentario,
         categoria: 'bazar',
+        subCategoria: this.articulo.categoria
       };
     }
     try {

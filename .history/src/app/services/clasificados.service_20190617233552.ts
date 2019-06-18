@@ -65,15 +65,9 @@ export class ClasificadosService {
     });
   }
 
-  getArticuloBazar(seccion, id) {
+  getArticuloBazar(categoria, id) {
     return new Promise(async (resolve, reject) => {
-      let ref;
-      if (!seccion) {
-        ref = `solo-lectura/anuncios/bazar-detalles/${id}`;
-      } else {
-        ref = `solo-lectura/anuncios/inmuebles-detalles/${id}`;
-      }
-      const bazarSub =  this.db.object(ref).valueChanges()
+      const bazarSub =  this.db.object(`/anuncios/bazar/${id}`).valueChanges()
         .subscribe(articulo => {
           bazarSub.unsubscribe();
           resolve(articulo);
@@ -84,12 +78,12 @@ export class ClasificadosService {
   // Empleos
 
   getEmpleos() {
-    return this.db.list('solo-lectura/anuncios/empleos').valueChanges();
+    return this.db.list('anuncios/empleos').valueChanges();
   }
 
   getEmpleo(id) {
     return new Promise(async (resolve, reject) => {
-      const empleoSub =  this.db.object(`solo-lectura/anuncios/empleos-detalles/${id}`).valueChanges()
+      const empleoSub =  this.db.object(`/anuncios/empleos/${id}`).valueChanges()
         .subscribe(articulo => {
           empleoSub.unsubscribe();
           resolve(articulo);
@@ -97,10 +91,22 @@ export class ClasificadosService {
     });
   }
 
+  // Inmuebles
+
+  getInmueble(id) {
+    return new Promise(async (resolve, reject) => {
+      const inmuebleSub =  this.db.object(`/anuncios/inmuebles/${id}`).valueChanges()
+        .subscribe(articulo => {
+          inmuebleSub.unsubscribe();
+          resolve(articulo);
+        });
+    });
+  }
+
   // Preguntas
 
-  getPreguntas(id) {
-    return this.db.list(`solo-lectura/preguntas/${id}`).valueChanges();
+  getPreguntas(id, categoria) {
+    return this.db.list(`/preguntas/${categoria}/${id}`).valueChanges();
 }
 
 }
