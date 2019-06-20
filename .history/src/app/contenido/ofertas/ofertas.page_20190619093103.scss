@@ -1,0 +1,23 @@
+.relative {
+    position: relative;
+}
+
+hr {
+    margin: 1rem 0;
+    border-bottom: 6px dotted #c4c4c7;
+}
+
+.circle {
+    position: absolute;
+    bottom: -17.5px;
+    right: 8px;
+    border-radius: 50%;
+    background: white;
+    width: 35px;
+    height: 35px;
+    align-content: center;
+}
+
+.topright {
+    font-size: 18pt;
+}

@@ -1,0 +1,39 @@
+<ion-content padding>
+
+    <div *ngIf="infoReady">
+        <ion-item lines="none">
+            <ion-ripple-effect type="bounded"></ion-ripple-effect>
+            <ion-label color="dark"> <strong>OFERTAS   </strong>
+                <ion-text color="primary" style="text-decoration: underline;" (click)="console()">
+                    Ver todas
+                </ion-text>
+            </ion-label>
+        </ion-item>
+        <ion-list *ngIf="hasOfertas">
+            <ion-slides [options]="sliderConfig">
+                <ion-slide *ngFor="let oferta of ofertas" (click)="prueba(oferta)">
+                    <img [src]="oferta.url">
+                </ion-slide>
+            </ion-slides>
+        </ion-list>
+
+        <ion-list *ngFor="let categoria of categorias | keyvalue">
+            <ion-list-header>
+                <ion-text color="primary">
+                    <h5>{{categoria.key}}</h5>
+                </ion-text>
+            </ion-list-header>
+            <ion-slides [options]="sliderConfig">
+                <ion-slide *ngFor="let product of categoria.value | keyvalue" (click)="prueba(product)">
+                    <div class="container">
+                        <ion-img [src]="product.value"></ion-img>
+                        <div class="content wrap-text">
+                            {{product.key}}
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slides>
+        </ion-list>
+    </div>
+
+</ion-content>

@@ -1,0 +1,50 @@
+ion-thumbnail {
+    --border-radius: 5px;
+    height: 100%;
+}
+
+.negocio-descripcion {
+    color: gray;
+    font-size: 12px;
+}
+
+.star {
+    font-size: 15px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mt-0 {
+    margin-top: 0px;
+}
+
+.wrap-text {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+    color: red;
+}
+
+.container {
+    width: 100%;
+    background-color: green;
+    overflow: hidden;
+    white-space: nowrap;
+     ::-webkit-scrollbar {
+        display: none;
+    }
+    .scroll {
+        overflow: auto;
+    }
+}
+
+.scrolling-wrapper-flexbox {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    .card {
+        display: inline-block;
+    }
+}

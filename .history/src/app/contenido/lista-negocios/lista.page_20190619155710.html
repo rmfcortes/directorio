@@ -1,0 +1,60 @@
+<ion-header no-border>
+    <ion-toolbar color="ligth">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-searchbar placeholder="Restaurantes o platillos"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="infoReady" class="scrolling-wrapper">
+        <div class="card" *ngFor="let item of subCategorias | keyvalue">
+            <img src="../../assets/images/restaurantes.png" style="height: 50px" alt="Avatar woman"> <br>
+            <span>{{item.value}}</span>
+        </div>
+    </div>
+
+    <ion-list class="ion-margin-top">
+        <ion-item *ngFor="let item of negocios" [routerLink]="['/lista', item.categoria, item.id]">
+            <ion-thumbnail slot="start">
+                <img [src]="item.url[0]">
+            </ion-thumbnail>
+            <div>
+                <h6 class="mb-5 mt-0 wrap-text">{{item.nombre}}</h6>
+                <ion-label class="negocio-descripcion">{{item.descripcion}}</ion-label>
+            </div>
+            <div slot="end" *ngIf="item.rate > 0">
+                <ion-note color="primary" class="star">{{item.rate | number:'1.0-2'}}
+                    <ion-icon name="star"></ion-icon>
+                    <small color="grey">({{item.valoraciones}})</small>
+                </ion-note>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <div *ngIf="!infoReady">
+        <div *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </div>
+    </div>
+
+</ion-content>

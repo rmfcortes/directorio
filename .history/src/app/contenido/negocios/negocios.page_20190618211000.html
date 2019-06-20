@@ -1,0 +1,16 @@
+<ion-content padding>
+
+    <ion-list *ngFor="let categoria of categorias | keyvalue">
+        <ion-list-header style="margin: 0">
+            <ion-text style="margin: 0" color="primary">
+                <h5 style="margin: 0">{{categoria.key}}</h5>
+            </ion-text>
+        </ion-list-header>
+        <ion-slides style="margin: 0" [options]="sliderConfig">
+            <ion-slide style="margin: 0" *ngFor="let product of categoria.value | keyvalue" (click)="prueba(product)">
+                <ion-img [src]="product.value"></ion-img>
+            </ion-slide>
+        </ion-slides>
+    </ion-list>
+
+</ion-content>

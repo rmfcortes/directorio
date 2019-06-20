@@ -1,0 +1,26 @@
+.relative {
+    position: relative;
+}
+
+hr {
+    margin: 20px 0;
+    border-bottom: 6px dotted #c4c4c7;
+}
+
+.circle {
+    position: absolute;
+    bottom: -17.5px;
+    right: 8px;
+    border-radius: 100%;
+    border: 2px solid #ff4f38;
+    background: white;
+    width: 35px;
+    height: 35px;
+}
+
+.ico {
+    position: absolute;
+    bottom: 12%;
+    right: 13.5%;
+    font-size: 18pt;
+}

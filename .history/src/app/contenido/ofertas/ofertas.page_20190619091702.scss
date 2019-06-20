@@ -1,0 +1,24 @@
+.bord {
+    margin-top: .75rem;
+    padding-bottom: .75rem;
+    border-bottom: 6px dotted #c4c4c7;
+}
+
+.relative {
+    position: relative;
+}
+
+.circle {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border-radius: 50%;
+    background: #ff4f38;
+    width: 45px;
+    height: 45px;
+}
+
+.topright {
+    margin: auto;
+    font-size: 18pt;
+}

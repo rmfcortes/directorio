@@ -1,0 +1,85 @@
+<ion-header class="mb-15" *ngIf="!contactUs">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Clasificados</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="presentCategorias()">Filtrar
+                <ion-icon style="margin-left: .8rem" name="options"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #pageTop>
+    <div *ngIf="infoReady && !contactUs">
+        <ion-list>
+            <ion-item *ngFor="let anuncio of anuncios" lines="full" class="ion-activatable" detail (click)="detallesAnuncio(anuncio)">
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-thumbnail slot="start">
+                    <ion-img [src]="anuncio.url"></ion-img>
+                </ion-thumbnail>
+                <div>
+                    <h4 text-wrap>{{anuncio.titulo}}</h4>
+                    <ion-label color="primary" class="negocio-descripcion"><strong>{{anuncio.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong></ion-label>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div *ngIf="!infoReady">
+        <ion-item *ngFor="let item of [1,2,3]">
+            <ion-skeleton-text animated style="width: 40vw; height: 40vw" slot="start"></ion-skeleton-text>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </div>
+    <ion-fab *ngIf="infoReady && !contactUs" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="agregarAnuncio()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <div style="margin-top: 2rem" *ngIf="contactUs">
+        <div>
+            <ion-img class="topleft" (click)="upgradeCuenta = false" src="../../assets/images/back.png" alt=""></ion-img>
+        </div>
+        <div style="width: 80% !important; margin: 4rem auto 2rem auto">
+            <h5 style="color: black; text-align: center">Con tu cuenta gratuita puedes publicar hasta 5 anuncios simultáneamente. Solicita tu cuenta premium para poder publicar más. O bien borra algún anuncio que ya no necesites publicar</h5>
+        </div>
+        <ion-img style="width: 70% !important; margin: 1.5rem auto" src="../../assets/images/contactUs.png"></ion-img>
+        <ion-grid>
+            <ion-row justify-content-center style="text-align: center">
+                <h5 style="color: black; text-align: center">Contáctanos para más información</h5>
+            </ion-row>
+            <ion-row justify-content-center style="text-align: center">
+                <ion-icon style="font-size: 30pt; margin-right: 1rem" color="primary" name="information-circle"></ion-icon>
+                <ion-icon style="font-size: 30pt; margin-right: 1rem" color="primary" name="call"></ion-icon>
+                <ion-icon style="font-size: 30pt; margin-right: 1rem" color="primary" name="logo-whatsapp"></ion-icon>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <ion-infinite-scroll *ngIf="filtroActivo; else infiniteFiltro" threshold="100px" (ionInfinite)="loadDataFiltro($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ng-template #infiniteFiltro>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-template>
+
+</ion-content>
