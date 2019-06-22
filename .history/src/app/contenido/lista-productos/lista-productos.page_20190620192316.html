@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="primary" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{pasillo | titlecase}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="scrolling-wrapper">
+        <div class="botones" *ngFor="let pasillo of categorias | keyvalue">
+            <ion-button shape="round" fill="outline" color="primary" size="small">
+                {{pasillo}}
+            </ion-button>
+        </div>
+    </div>
+
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="primary" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{pasillo | titlecase}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <div *ngFor="let categoria of categorias; let i = index;">
+            <ion-item detail (click)="display(i)">
+                <ion-avatar slot="start">
+                    <img [src]="categoria.url">
+                </ion-avatar>
+                <ion-label>{{categoria.nombre}}</ion-label>
+
+            </ion-item>
+            <ion-list *ngIf="categoria.display === true">
+                <ion-item *ngFor="let sub of categoria.sub" detail>
+                    <ion-label color="medium">{{sub}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-list>
+
+</ion-content>

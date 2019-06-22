@@ -1,0 +1,18 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+}
+
+.grid-item {
+    // border: 0.25px solid lightgray;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.heart {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}

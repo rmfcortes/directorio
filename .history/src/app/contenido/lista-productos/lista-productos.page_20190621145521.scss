@@ -1,0 +1,26 @@
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    .card {
+        // border: lightgray solid 0.25px;
+        width: 40vw;
+        max-width: 40vw;
+        display: inline-block;
+        text-align: center;
+        padding: .75rem;
+        margin: 0;
+        font-size: 14pt;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+        white-space: nowrap;
+    }
+    .botones {
+        display: inline-block;
+        margin: 1rem 0 0.5rem 1rem;
+    }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{categoria | titlecase}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon color="light" slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-spinner name="dots" style="transform: scale(3)"></ion-spinner>
+
+    <div class="grid-container" *ngIf="infoReady">
+        <div class="grid-item" *ngFor="let prod of productos; let i = index">
+            <div style="position: relative;">
+                <ion-img [src]="prod.url" alt=""></ion-img>
+                <div class="heart">
+                    <ng-container *ngIf="!prod.guardado; else elseTemplate">
+                        <ion-icon color="primary" color="medium" (click)="agregarFavorito(i)" name="heart-empty"></ion-icon>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <ion-icon color="primary" color="primary" (click)="borrarFavorito(i)" name="heart"></ion-icon>
+                    </ng-template>
+                </div>
+            </div>
+            <h6 text-wrap> <strong>{{prod.nombre}}</strong></h6>
+            <span style="color: var(--ion-color-medium); font-size: 11pt">
+                        {{prod.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                    </span> <br>
+            <span style="color: var(--ion-color-medium); font-size: 9pt">
+                        {{prod.unidad}}
+                    </span><br>
+            <div>
+                <ion-button style="--box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.10);" fill="clear" color="success" size="small">
+                    Agregar
+                </ion-button>
+            </div>
+        </div>
+    </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

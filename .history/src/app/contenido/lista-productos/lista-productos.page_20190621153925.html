@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{categoria | titlecase}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon color="light" slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="grid-container">
+        <div class="grid-item" *ngFor="let prod of productos">
+            <ion-img [src]="prod.url" alt=""></ion-img>
+            <h6 text-wrap>{{prod.nombre}}</h6>
+            <span style="color: var(--ion-color-medium); font-size: 13pt">
+                        {{prod.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                    </span> <br>
+            <span style="color: var(--ion-color-medium); font-size: 12pt">
+                        {{prod.unidad}}
+                    </span><br>
+            <ion-button fill="outline" color="success" size="small">
+                Agregar
+            </ion-button>
+        </div>
+    </div>
+
+</ion-content>
