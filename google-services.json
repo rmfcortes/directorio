@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "765159975436",
+    "firebase_url": "https://directorio-app-1556403564617.firebaseio.com",
+    "project_id": "directorio-app-1556403564617",
+    "storage_bucket": "directorio-app-1556403564617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765159975436:android:7b2a5db50ece144c",
+        "android_client_info": {
+          "package_name": "com.directoriOjo.appTop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765159975436-a5ehtihvrlgqo1igfgutap03jk3jgpv5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.directoriOjo.appTop",
+            "certificate_hash": "7d0ee39fcac95f013b734174a281cd1e6807677f"
+          }
+        },
+        {
+          "client_id": "765159975436-pc92uulk4js00k82aqokgc0hnq5qmr80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB967K5TsC6LS3knRJ2qag6lgRXse0cN5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765159975436-pc92uulk4js00k82aqokgc0hnq5qmr80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
