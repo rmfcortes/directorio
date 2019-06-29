@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController  } from '@ionic/angular';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { AlertController, LoadingController, ModalController  } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
-import { VariablesService } from 'src/app/services/variables.service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +9,10 @@ import { VariablesService } from 'src/app/services/variables.service';
 })
 export class LoginPage implements OnInit {
 
+  @Input() tipo: string;
+
   correo: string;
   pass: string;
-  id: string;
-  categoria: string;
-  accion: string;
-  calificacion: string;
   loader: any;
 
   usuario = {
@@ -33,43 +28,41 @@ export class LoginPage implements OnInit {
   mensaje: string;
 
   constructor(private authService: AuthService,
-              private activedRoute: ActivatedRoute,
-              private router: Router,
-              private location: Location,
+              private modalController: ModalController,
               public alertController: AlertController,
-              public loadingCtrl: LoadingController,
-              private variableService: VariablesService) { }
+              public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    this.activedRoute.params.subscribe(data => {
-      if (data) {
-        this.categoria = data['categoria'];
-        this.id = data['id'];
-        if (this.categoria === 'menu') {
-          this.accion = 'menu';
-          if (this.id === 'favorito') {
-            this.mensaje = 'Inicia sesión para sincronizar tus negocios, ofertas y anuncios favoritos en todos tus dispositivos ' +
-                            'y no perderlos nunca';
-          } else if (this.id === 'producto') {
-            this.mensaje = 'Inicia sesión para sincronizar tu carrito de compra y productos favoritos en todos tus dispositivos ' +
-            'y no perderlos nunca';
-          }
-          return;
-        }
-        if (this.categoria === 'anuncio') {
-          this.mensaje = 'Antes de continuar. ' +
-          'Inicia sesión para guardar tus anuncios publicados en todos tus dispositivos y no perderlos nunca';
-          return;
-        }
-        this.mensaje = 'Antes de continuar. ' +
-          'Inicia sesión para guardar tus reseñas en todos tus dispositivos y no perderlos nunca';
-        this.accion = data['accion'];
-        this.calificacion = data['calificacion'];
-      }
-    });
+    if (this.tipo === 'favorito') {
+      this.mensaje = 'Inicia sesión para sincronizar tus negocios, ofertas y anuncios favoritos en todos tus dispositivos ' +
+                      'y no perderlos nunca';
+      return;
+    }
+    if (this.tipo === 'producto') {
+      this.mensaje = 'Inicia sesión para sincronizar tu carrito de compra y productos favoritos en todos tus dispositivos ' +
+      'y no perderlos nunca';
+      return;
+    }
+    if (this.tipo === 'anuncio') {
+      this.mensaje = 'Antes de continuar. ' +
+      'Inicia sesión para guardar tus anuncios publicados en todos tus dispositivos y no perderlos nunca';
+      return;
+    }
+    if (this.tipo === 'pregunta') {
+      this.mensaje = 'Antes de continuar. ' +
+      'Inicia sesión para guardar tus preguntas en todos tus dispositivos y no perderlas nunca';
+      return;
+    }
+    if (this.tipo === 'calificar') {
+      this.mensaje = 'Antes de continuar. ' +
+      'Inicia sesión para guardar tus comentarios y reseñas en todos tus dispositivos y no perderlos nunca';
+      return;
+    }
+    this.mensaje = 'Antes de continuar. ' +
+      'Inicia sesión para mantener al día tu cuenta en todos tus dispositivos';
   }
 
   async loginFace() {
@@ -126,26 +119,6 @@ export class LoginPage implements OnInit {
     const user = await this.authService.revisa();
   }
 
-  async redireccionar() {
-    if (this.accion === 'menu') {
-      this.location.back();
-      return;
-    }
-    if (this.categoria === 'anuncio') {
-      const pagina = await this.variableService.getPagina();
-      this.router.navigate([pagina]);
-      return;
-    }
-    this.router.navigate(['/calificar', this.categoria, this.id, this.calificacion]);
-  }
-
-  regresar() {
-    if (this.accion === 'calificar') {
-      this.router.navigate(['/lista', this.categoria, this.id]);
-      return;
-    }
-    this.location.back();
-  }
 
   regresarEmail() {
     this.loginWithEmail = false;
@@ -176,7 +149,7 @@ export class LoginPage implements OnInit {
       buttons: [{
         text: 'Aceptar',
         handler: () => {
-          this.redireccionar();
+          this.regresar();
         }
       }],
     });
@@ -189,6 +162,10 @@ export class LoginPage implements OnInit {
      spinner: 'crescent'
     });
     return await this.loader.present();
+  }
+
+  async regresar() {
+    await this.modalController.dismiss();
   }
 
 }

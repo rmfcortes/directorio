@@ -1,0 +1,341 @@
+<ion-header *ngIf="prodsReady || resumenReady && !isOpen" class="animate-bottom">
+    <ion-toolbar [appScrollVanish]="scrollArea" (visible)="isVisible = $event.data">
+        <div class="relative">
+            <ion-icon color="primary" class="topleft" (click)="regresar()" name="arrow-back"></ion-icon>
+            <ion-slides [options]="slidesOpts" #slideWithNav>
+                <ion-slide *ngFor="let s of negocio.url">
+                    <img [src]="s">
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="!isVisible">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="icon-only" color="primary" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title color="primary">{{negocio.nombre}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button *ngIf="guardado" (click)="borrarFavorito()">
+                <ion-icon color="primary" class="icono-opciones" name="heart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end" *ngIf="!guardado" (click)="agregarFavorito()">
+            <ion-button>
+                <ion-icon color="primary" class="icono-opciones" name="heart-empty"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end" *ngIf="guardando">
+            <ion-button>
+                <ion-spinner color="primary" name="bubbles"></ion-spinner> <br *ngIf="guardando">
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="pagina">
+            <ion-segment-button value="productos" *ngIf="hasProductos">
+                Productos
+            </ion-segment-button>
+            <ion-segment-button value="resumen">
+                Resumen
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #scrollArea scrollEvents="true">
+    <div class="backOpen" *ngIf="isOpen"></div>
+    <div class="container" *ngIf="!prodsReady">
+        <div class="loader">
+            <ion-spinner name="crescent" color="primary" style="width: 150px; height: 150px"></ion-spinner>
+        </div>
+    </div>
+
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Este anuncio ha sido borrado</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="!noLongerExist" [ngSwitch]="pagina">
+
+        <div class="animate-bottom" *ngSwitchCase="'resumen'">
+            <div *ngIf="resumenReady">
+                <ion-grid>
+                    <ion-row style="text-align: center;">
+                        <ion-col size="6" align-self-center>
+                            <h4 style="color:#ff4f38">
+                                {{negocio.nombre}}
+                                <ion-icon (click)="agregarFavorito()" color="primary" *ngIf="!guardado" class="icono-opciones" name="heart-empty"></ion-icon>
+                                <ion-spinner *ngIf="guardando" color="primary" name="bubbles"></ion-spinner> <br *ngIf="guardando">
+                                <ion-icon (click)="borrarFavorito()" color="primary" *ngIf="guardado" class="icono-opciones" name="heart"></ion-icon>
+                            </h4>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6" align-self-center>
+                            <span style="color:#989aa2">{{negocio.descripcion}}</span>
+                        </ion-col>
+                        <ion-col size="6" align-self-center>
+                            <ion-label style="float: right; color: black; margin-left: 1rem">
+                                {{negocio.rate | number:'1.0-2'}}
+                                <ion-icon style="color:orange" name="star"></ion-icon>
+                                <ion-label style="margin-right: 1rem">({{negocio.valoraciones}})</ion-label>
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-grid class="linea mb-20">
+                    <ion-row>
+                        <h6 style="margin-left: 1rem">
+                            SUCURSALES
+                        </h6>
+                    </ion-row>
+                    <ion-row style="text-align: center">
+                        <ion-grid>
+                            <ion-row style="text-align: left;" *ngFor="let sucursal of sucursales; let i = index">
+                                <ion-col size="6">
+                                    <ion-text style="font-size: 12pt">
+                                        {{i+1}}.- {{sucursal.nombre}} - <span style="font-size: 10pt; color: #ff4f38">{{sucursal.status}}</span>
+                                    </ion-text>
+                                </ion-col>
+                                <ion-col size="6">
+                                    <ion-icon (click)="presentInfoSucursal(i)" style="float: right; font-size: 20pt; margin-right: .75rem" color="primary" name="information-circle"></ion-icon>
+                                    <ion-icon (click)="llamar(sucursal.telefono)" style="float: right; font-size: 20pt; margin-right: .75rem" color="primary" name="call"></ion-icon>
+                                    <ion-icon (click)="muestraMapa(sucursal.lat, sucursal.lng)" style="float: right; font-size: 20pt; margin-right: .75rem" color="primary" name="pin"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-grid class="linea mb-20" *ngIf="hasPreguntas">
+                    <ion-row>
+                        <ng-container *ngIf="negocio.preguntas > 3; else elseTemplate">
+                            <ion-col size="12">
+                                <ion-item lines="none" detail>
+                                    <h6 style="margin-left: 1rem">
+                                        PREGUNTAS
+                                    </h6>
+                                    <ion-note color="primary" slot="end">Ver todas</ion-note>
+                                </ion-item>
+                            </ion-col>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <ion-col size="12">
+                                <ion-item lines="none">
+                                    <h6 style="margin-left: 1rem">
+                                        PREGUNTAS
+                                    </h6>
+                                </ion-item>
+                            </ion-col>
+                        </ng-template>
+                    </ion-row>
+                    <ion-row>
+                        <ion-list>
+                            <div *ngFor="let pregunta of preguntas">
+                                <ion-item lines="none">
+                                    <ion-item lines="none">
+                                        <ion-text style="font-size: 12pt;">
+                                            <ion-icon name="text" style="margin-right: 0.5rem"></ion-icon> {{pregunta.pregunta}}
+                                            <div *ngIf="pregunta.respuesta" style="margin-left: 1rem">
+                                                <ion-icon color="medium" style="transform: scale(-1, 1); margin-right: 0.5rem" name="text"></ion-icon>
+                                                <span style="color: var(--ion-color-medium);">{{pregunta.respuesta}}</span>
+                                            </div>
+                                        </ion-text>
+                                    </ion-item>
+                                </ion-item>
+                            </div>
+
+                        </ion-list>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="10">
+                            <ion-input [(ngModel)]="duda" class="pregunta-box" clearInput="true" placeholder="Escribe aquí tu pregunta"></ion-input>
+                        </ion-col>
+                        <ion-col size="2">
+                            <ion-button (click)="preguntar()" fill="clear">
+                                <ion-icon slot="icon-only" name="send"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-grid class="linea">
+                    <ion-row>
+                        <ng-container *ngIf="negocio.valoraciones > 3; else elseTemplate">
+                            <ion-col size="12">
+                                <ion-item lines="none">
+                                    <h6 style="margin-left: 1rem">
+                                        COMENTARIOS
+                                    </h6>
+                                </ion-item>
+                            </ion-col>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <ion-col size="12">
+                                <ion-item lines="none" detail>
+                                    <h6 style="margin-left: 1rem">
+                                        COMENTARIOS
+                                    </h6>
+                                    <ion-note color="primary" slot="end">Ver todos</ion-note>
+                                </ion-item>
+                            </ion-col>
+                        </ng-template>
+
+
+                    </ion-row>
+                    <ion-row style="text-align: center">
+                        <ion-col size="9">
+                            <ion-row *ngFor="let calificacion of negocio.calificaciones">
+                                <ion-col align-self-center size="1">
+                                    {{calificacion.valor}}
+                                </ion-col>
+                                <ion-col align-self-center size="11">
+                                    <ion-progress-bar color="primary" [value]="calificacion.cantidad / negocio.valoraciones"></ion-progress-bar>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col align-self-center size="3" style="text-align: center">
+                            <ion-row style="text-align: center">
+                                <ion-col>
+                                    <h1 style="color: #ff4f38">
+                                        {{negocio.rate | number:'1.0-2'}}
+                                    </h1>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row style="text-align: center">
+                                <ion-col>
+                                    <ion-label style="font-size: 12px">{{negocio.valoraciones}} opiniones</ion-label>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                    <ion-list>
+                        <ion-item lines="none" *ngFor="let opinion of opiniones">
+                            <ion-avatar slot="start">
+                                <img [src]="opinion.url">
+                            </ion-avatar>
+                            <ion-note slot="end">{{opinion.puntos}}
+                                <ion-icon style="color:orange; margin-left: 0.5rem" name="star">
+                                </ion-icon>
+                            </ion-note>
+                            <ion-label>
+                                "{{opinion.comentario}}"
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-grid>
+
+                <ion-grid class="linea mb-20">
+                    <ion-row>
+                        <h6 style="margin-left: 1rem">
+                            CALIFICAR Y COMENTAR
+                        </h6>
+                    </ion-row>
+                    <ion-row style="text-align: center">
+                        <ion-col>
+                            <rating [(ngModel)]="puntuacion" (ngModelChange)="rateChange($event)">
+                            </rating>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+
+        <div class="animate-bottom" *ngSwitchCase="'productos'">
+            <div *ngIf="prodsReady">
+                <div *ngIf="hasOfertas" class="relative">
+                    <ion-slides [options]="sliderConfig" pager="true">
+                        <ion-slide *ngFor="let oferta of ofertas">
+                            <img [src]="oferta.url" (click)="muestraOfertas(oferta.key)">
+                        </ion-slide>
+                    </ion-slides>
+                </div>
+
+                <div class="scrolling-wrapper">
+                    <div class="botones" *ngFor="let pasillo of pasillos">
+                        <ion-button shape="round" color="primary" size="small" (click)="muestraPasillo(pasillo)">
+                            {{pasillo}}
+                        </ion-button>
+                    </div>
+                </div>
+                <div [id]="item.nombre" *ngFor="let item of productos; let i = index; let first = first">
+                    <ion-item lines="none" detail (click)="muestraPasillo(item.nombre)">
+                        <h4 style="color: var(--ion-color-primary)" text-wrap>{{item.nombre | titlecase}}</h4>
+                        <ion-note *ngIf="!first" slot="end" color="primary">Ver todos</ion-note>
+                    </ion-item>
+                    <div class="scrolling-wrapper">
+                        <div class="card" *ngFor="let prod of item.productos; let y = index">
+                            <div style="position: relative;">
+                                <ion-img [src]="prod.url" alt=""></ion-img>
+                                <div class="heart">
+                                    <ng-container *ngIf="!prod.guardado; else elseTemplate">
+                                        <ion-icon color="primary" color="medium" (click)="agregarProductoFavorito(prod, i, y)" name="heart-empty"></ion-icon>
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                        <ion-icon color="primary" color="primary" (click)="borrarProductoFavorito(prod, i, y)" name="heart"></ion-icon>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <h6 text-wrap>{{prod.nombre}}</h6>
+                            <span style="color: var(--ion-color-medium); font-size: 13pt">
+                                    {{prod.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                                </span> <br>
+                            <span style="color: var(--ion-color-medium); font-size: 12pt">
+                                    {{prod.unidad}}
+                                </span><br>
+                            <div>
+                                <ng-container *ngIf="!prod.cart; else botones">
+                                    <ion-button (click)="addProduct(prod, item.nombre, i, y)" style="--box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.10);" fill="clear" color="primary" size="small">
+                                        Agregar
+                                    </ion-button>
+                                </ng-container>
+                                <ng-template #botones>
+                                    <ion-grid fixed>
+                                        <ion-row no-padding>
+                                            <ion-col align-self-center no-padding size="3" (click)="plusProduct(prod, i, y)">
+                                                <ion-icon style="font-size: 16pt" color="primary" name="add-circle"></ion-icon>
+                                            </ion-col>
+                                            <ion-col align-self-center no-padding size="6">
+                                                <ion-input readonly="true" class="inpu" type="number" [(ngModel)]="prod.cantidad"></ion-input>
+                                            </ion-col>
+                                            <ion-col align-self-center no-padding size="3" (click)="minusProduct(prod, i, y)">
+                                                <ion-icon style="font-size: 16pt" color="medium" name="remove-circle"></ion-icon>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div style="width: 100%; height: 50px;">
+    </div>
+
+    <div *ngIf="hasProductos">
+        <app-cart (abre)="isOpen = true" (cierra)="isOpen = false" (vacia)="emptyCart()" (plus)="plusData($event)" (minus)="minusData($event)">
+        </app-cart>
+    </div>
+
+
+
+</ion-content>
