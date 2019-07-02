@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-searchbar [(ngModel)]="dirSearch" placeholder="Ingresa tu dirección" showCancelButton="focus"></ion-searchbar>
+        <ng-container *ngIf="data; else search">
+            <ion-buttons slot="end">
+                <ion-button (click)="navegar()">
+                    <ion-icon color="light" slot="icon-only" name="navigate"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ng-container>
+        <ng-template #search>
+            <ion-buttons slot="end">
+                <ion-button (click)="regresar()">
+                    <ion-icon color="light" slot="icon-only" name="search"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ng-template>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    {{dirSearch}}
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
+        <agm-marker *ngIf="data" [latitude]="lat" [longitude]="lng"></agm-marker>
+        <div *ngIf="rutaReady">
+            <agm-marker [iconUrl]='{"url": "assets/images/person_pin_circle_black_192x192.png","scaledSize": {"height": 40, "width": 20}}' [latitude]="latMe" [longitude]="lngMe"></agm-marker>
+            <agm-polyline *ngFor="let point of puntos; let i = index;" [strokeColor]="'#ff4f38'">
+                <agm-polyline-point [latitude]="point.lat" [longitude]="point.lng">
+                </agm-polyline-point>
+            </agm-polyline>
+        </div>
+    </agm-map>
+    <div hidden>
+        <ion-input id="txtHome" type="text" [value]="dirSearch" name="direccion"></ion-input>
+    </div>
+</ion-content>
