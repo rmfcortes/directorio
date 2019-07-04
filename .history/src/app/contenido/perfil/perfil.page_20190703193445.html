@@ -1,0 +1,15 @@
+<ion-content>
+    <ng-container *ngIf="infoReady; else infoTemplate">
+        <div class="cabezal">
+            <div class="foto">
+                <ion-img [src]="user.foto"></ion-img>
+            </div>
+            <h4 style="color: thistle">{{user.nombre}}</h4>
+        </div>
+    </ng-container>
+    <ng-template #infoTemplate>
+
+    </ng-template>
+
+
+</ion-content>

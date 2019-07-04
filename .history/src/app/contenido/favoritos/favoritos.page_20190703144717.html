@@ -1,0 +1,57 @@
+<ion-header *ngIf="detalles">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="detalles = false">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <!-- *ngIf="!hasFavoritos" -->
+        <ion-grid style="margin-top: 2rem">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: cornflowerblue">No tienes productos, servicios o negocios guardados</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/favoritos.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <!-- <div class="ion-margin-top" *ngIf="!detalles">
+            <ion-list *ngFor="let item of categorias">
+                <ion-item detail (click)="getListaFavoritos(item)">
+                    <ion-label>{{item | titlecase}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <div *ngIf="detalles">
+            <ion-list *ngFor="let item of favoritos" class="ion-margin-top">
+
+                <ion-item detail (click)="presentOpciones(item)">
+                    <ion-thumbnail *ngIf="item.url" slot="start">
+                        <img [src]="item.url">
+                    </ion-thumbnail>
+                    <div class="wrap-text">
+                        <p>
+                            <ion-text style="font-size: 14pt"><strong>{{item.nombre}}</strong></ion-text> <br>
+                            <ion-text *ngIf="isEmpleo" color="medium"><strong>{{item.empresa}}</strong></ion-text> <br *ngIf="isEmpleo">
+                            <ion-text *ngIf="!isEmpleo" color="medium">{{item.descripcion}}</ion-text> <br *ngIf="!isEmpleo">
+                        </p>
+                    </div>
+                    <ion-note *ngIf="item.precio" slot="end" style="margin-right: 0.8rem; font-size: 18px" color="primary">
+                        {{item.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                    </ion-note>
+                </ion-item>
+            </ion-list>
+        </div> -->
+
+    </div>
+</ion-content>

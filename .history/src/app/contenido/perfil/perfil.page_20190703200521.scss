@@ -1,0 +1,18 @@
+.cabezal {
+    width: 100vw;
+    height: 30vh;
+    background: var(--ion-color-primary);
+    position: relative;
+}
+
+.foto {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.lista {
+    position: relative;
+    left: 10%;
+    width: 80%;
+}

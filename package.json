@@ -73,6 +73,7 @@
         "firebase": "^6.0.2",
         "ionic4-rating": "^1.0.9",
         "mx.ferreyra.callnumber": "~0.0.2",
+        "ng-lottie": "^0.3.2",
         "rxjs": "~6.5.1",
         "tslib": "^1.9.0",
         "zone.js": "~0.8.29"

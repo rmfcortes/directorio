@@ -1,0 +1,180 @@
+<ion-content>
+
+
+    <ion-slides [options]="slideOpts">
+        <ion-slide>
+            <div style="width: 100%; height: 100%">
+                <div class="cabezal">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="12" (click)="closeCart()">
+                                <ion-icon color="light" style="float: left" name="arrow-back"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4">
+                                <ion-label color="warning">Entregar en:</ion-label>
+                            </ion-col>
+                            <ion-col size="">
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="1" align-self-center>
+                                <ion-icon color="warning" name="pin"></ion-icon>
+                            </ion-col>
+                            <ion-col size="8" align-self-center>
+                                <ng-container *ngIf="direccion; else direccionTemplate">
+                                    <ion-label color="light" style="font-size: 14pt" text-wrap><strong>{{direccion.direccion}}</strong></ion-label>
+                                </ng-container>
+                                <ng-template #direccionTemplate>
+                                    <ion-label (click)="mostrarDirecciones()" color="light" style="font-size: 14pt" text-wrap><strong>Elige una dirección de entrega</strong></ion-label>
+                                </ng-template>
+
+                            </ion-col>
+                            <ion-col size="3" align-self-center (click)="mostrarDirecciones()">
+                                <ion-label style="font-size: 9pt" color="warning">Cambiar</ion-label>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+
+                <div class="contenido">
+                    <ion-list>
+                        <ion-item *ngFor="let producto of cart; let i = index" lines="none">
+                            <ion-thumbnail slot="start">
+                                <ion-img [src]="producto.url"></ion-img>
+                            </ion-thumbnail>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col size="7">
+                                        <div>
+                                            <h6 text-wrap>{{producto.nombre}}</h6>
+                                            <ion-label color="medium"><strong>{{producto.total | currency:'CAD':'symbol-narrow':'1.0-2'}}   |  {{producto.unidad}}</strong></ion-label>
+                                        </div>
+                                    </ion-col>
+                                    <ion-col size="5" align-self-center>
+                                        <ion-grid>
+                                            <ion-row no-padding>
+                                                <ion-col align-self-center no-padding size="3" (click)="plusProduct(i)">
+                                                    <ion-icon style="font-size: 16pt" color="primary" name="add-circle"></ion-icon>
+                                                </ion-col>
+                                                <ion-col align-self-top no-padding size="6">
+                                                    <ion-input readonly=true; class="inpu" type="number" [(ngModel)]="producto.cantidad"></ion-input>
+                                                </ion-col>
+                                                <ion-col align-self-center no-padding size="3" (click)="minusProduct(i)">
+                                                    <ion-icon style="font-size: 16pt" color="medium" name="remove-circle"></ion-icon>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
+                    </ion-list>
+
+                    <div style="width: 90%; left: 5%; position: relative;">
+                        <hr class="linea">
+                        <ion-grid no-padding>
+                            <ion-row style="text-align: center">
+                                <ion-col size="6" (click)="emptyCart()" align-self-center><span style="color: var(--ion-color-medium);">Vaciar carrito</span></ion-col>
+                                <ion-col size="6" (click)="closeCart()"><span style="color: var(--ion-color-primary);"><strong>Agregar más productos</strong></span> </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <hr class="linea">
+                    </div>
+
+                    <div style="width: 80%; left: 10%; position: relative;">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <ion-label color="medium" style="font-size: 10pt">Costo de envío</ion-label>
+                                </ion-col>
+                                <ion-col size="6">
+                                    <ion-label color="medium" style="font-size: 10pt; float: right">{{costoEnv | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6">
+                                    <ion-label>Total</ion-label>
+                                </ion-col>
+                                <ion-col size="6">
+                                    <ion-label style="float: right">{{cuenta | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div style="width: 100%; height: 100%">
+                <div class="relative">
+                    <ion-icon color="primary" class="topleft" (click)="regresarCarrito()" name="arrow-back"></ion-icon>
+                </div>
+                <ion-list style="width: 100%; height: 100%; margin-top: 2rem;">
+                    <div style="width: 90%; position: relative; left: 5%;">
+                        <h4 style="color: var(--ion-color-primary);">Elige una dirección de entrega</h4>
+                        <hr class="linea">
+                    </div>
+                    <ng-container *ngIf="direcciones.length > 0; else elseTemplate">
+                        <div *ngFor="let dir of direcciones; let i = index;">
+                            <ion-radio-group [(ngModel)]="direccion">
+                                <ion-item>
+                                    <ion-label color="dark" text-wrap>{{dir.direccion}}</ion-label>
+                                    <ion-radio slot="end" color="primary" [value]="dir"></ion-radio>
+                                </ion-item>
+                            </ion-radio-group>
+                        </div>
+                        <ion-grid fixed>
+                            <ion-row style="text-align: center">
+                                <ion-col size="12">
+                                    <ion-button (click)="presentaMapa()" fill="outline">
+                                        Agregar dirección
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <ion-grid fixed>
+                            <ion-row style="text-align: center">
+                                <ion-col size="12">
+                                    <ion-label color="medium" text-wrap>
+                                        No tienes direcciones guardadas. Agrega alguna para poder entregar tu pedido.
+                                    </ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="12">
+                                    <ion-img src="../../assets/images/no-directions.jpg"></ion-img>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ng-template>
+                </ion-list>
+            </div>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ng-container *ngIf="posicion === 0; else elseFooter">
+            <ion-button (click)="ordenar()" [disabled]="cuenta === 0" color="primary" expand="block" shape="round">
+                Hacer pedido
+            </ion-button>
+        </ng-container>
+        <ng-template #elseFooter>
+            <ng-container *ngIf="direcciones.length > 0; else elseAcept">
+                <ion-button color="primary" expand="block" shape="round" (click)="regresarCarrito()" [disabled]="!direccion">
+                    Aceptar
+                </ion-button>
+            </ng-container>
+            <ng-template #elseAcept>
+                <ion-button color="primary" expand="block" shape="round" (click)="presentaMapa()">
+                    Agregar dirección
+                </ion-button>
+            </ng-template>
+        </ng-template>
+    </ion-toolbar>
+</ion-footer>
