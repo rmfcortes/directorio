@@ -6,6 +6,7 @@ import { Pregunta } from 'src/app/interfaces/negocio.interface';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Usuario, Direccion } from '../interfaces/usuario.interfaces';
+import { VistaPreviaPedido, Pedido } from '../interfaces/pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -200,18 +201,22 @@ export class UsuarioService {
       if (lastKey) {
         const x = this.db.list(`usuarios/${uid}/pedidos/vista-previa/`, data =>
           data.orderByKey().limitToLast(batch).startAt(lastKey))
-            .valueChanges().subscribe(pedidos => {
+            .valueChanges().subscribe((pedidos) => {
               x.unsubscribe();
               resolve(pedidos);
             });
       } else {
         const x = this.db.list(`usuarios/${uid}/pedidos/vista-previa/`, data =>
-          data.orderByKey().limitToLast(batch)).valueChanges().subscribe(pedidos => {
+          data.orderByKey().limitToLast(batch)).valueChanges().subscribe((pedidos) => {
             x.unsubscribe();
             resolve(pedidos);
           });
       }
     });
+  }
+
+  getPedido(uid, pedido) {
+    return this.db.object(`usuarios/${uid}/pedidos/detalles/${pedido}`).valueChanges();
   }
 
   publicarComentario(comentario, uid) {

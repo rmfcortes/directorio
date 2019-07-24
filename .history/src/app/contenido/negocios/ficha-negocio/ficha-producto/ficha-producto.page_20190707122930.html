@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar no-border>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <app-cart (actualiza)="actualizaCart($event)"></app-cart>
+
+</ion-content>

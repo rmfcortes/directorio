@@ -1,0 +1,27 @@
+.linea {
+    position: absolute;
+    width: 2px;
+    background: grey;
+    height: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.icono {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.caja {
+    width: 80%;
+    height: 100px;
+    left: 10%;
+    border-radius: 15px;
+    --box-shadow: 0 4px 8px 0 #00000026, 0 6px 20px 0 #0000001a;
+    z-index: 1;
+    position: sticky;
+    bottom: 0;
+    background: green;
+}

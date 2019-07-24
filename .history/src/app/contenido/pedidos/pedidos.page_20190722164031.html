@@ -1,0 +1,257 @@
+<ion-header *ngIf="showDetails">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresarCategorias()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title style="font-size: 12pt">Nombre negocio</ion-title>
+        <ion-buttons slot="end">
+            <ion-button fill="clear" color="primary">
+                DETALLES
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <div style="margin-left: 2rem">
+            <ion-label color="medium" style="font-size: 12pt">Entrega estimada:</ion-label>
+            <h1 style="margin-top: 0.25rem"><strong>12:55pm</strong></h1>
+        </div>
+        <ion-buttons slot="end">
+            <ion-button fill="outline" color="primary">
+                SOPORTE
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-slides [options]="slideOpts">
+        <ion-slide>
+            <ng-container *ngIf="infoReady; else infoTemplate">
+                <div style="width: 100%; height: 100%">
+                    <ng-container *ngIf="hasPedidos; else elseTemplate">
+                        <lottie-animation-view [options]="lottieConfig" [width]="60" [height]="120">
+                        </lottie-animation-view>
+
+                        <ion-list>
+                            <ion-item detail (click)="muestraPedido()">
+                                <ion-label>Pedido 1</ion-label>
+                            </ion-item>
+                        </ion-list>
+
+                        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+                            <ion-infinite-scroll-content loadingSpinner="bubbles">
+                            </ion-infinite-scroll-content>
+                        </ion-infinite-scroll>
+
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <ion-grid style="margin-top: 2rem" *ngIf="!hasPedidos">
+                            <ion-row style="text-align: center;">
+                                <ion-col>
+                                    <h6 style="color: var(--ion-color-medium);">Aún no haz hecho tu primer pedido. Navega por la app y descubre todos los productos que tenemos para ti.</h6>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row style="text-align: center;">
+                                <ion-col>
+                                    <ion-img src="../../assets/images/no-pedidos.png"></ion-img>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ng-template>
+                </div>
+            </ng-container>
+
+            <ng-template #infoTemplate>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12" style="margin-top: .75rem">
+                            <ion-skeleton-text animated style="width: 85px; height: 85px; border-radius: 100%; margin: auto"></ion-skeleton-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top: 2rem">
+                        <ion-col size="12">
+                            <div *ngFor="let item of [1,2,3,4,5,6,7]">
+                                <ion-skeleton-text animated style="width: 80%; height: 25px; border-radius: 5px; margin: 10px auto"></ion-skeleton-text>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ng-template>
+        </ion-slide>
+
+        <ion-slide>
+            <div style="width: 100%; height: 100%; margin-top: 2rem" *ngIf="showDetails">
+                <ion-grid no-padding>
+                    <ion-row no-padding style="text-align: left">
+                        <ion-col no-padding size="2">
+                            <div style="position: relative; width: 100%; height: 100%">
+                                <div class="linea"></div>
+                                <ng-container *ngIf="status.paso1; else icono1Template">
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="success" name="checkmark-circle"></ion-icon>
+                                    </div>
+                                </ng-container>
+                                <ng-template #icono1Template>
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="medium" name="radio-button-on"></ion-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ng-container *ngIf="status.paso1; else paso1Template">
+                                <ion-label style="font-size: 12pt">Tu pedido ha sido aceptado</ion-label> <br>
+                                <ion-label style="font-size: 8pt" color="medium">{{status.paso1}}</ion-label>
+                            </ng-container>
+                            <ng-template #paso1Template>
+                                <ion-label style="font-size: 12pt" color="medium">Esperando confirmación de tu pedido</ion-label>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row no-padding style="text-align: left">
+                        <ion-col no-padding size="2">
+                            <div style="position: relative; width: 100%; height: 100%">
+                                <div class="linea"></div>
+                                <ng-container *ngIf="status.paso2; else icono2Template">
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="success" name="checkmark-circle"></ion-icon>
+                                    </div>
+                                </ng-container>
+                                <ng-template #icono2Template>
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="medium" name="radio-button-on"></ion-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ng-container *ngIf="status.paso2; else paso2Template">
+                                <ion-label style="font-size: 12pt">Tu pedido está siendo preparado</ion-label> <br>
+                                <ion-label style="font-size: 8pt" color="medium">{{status.paso2}}</ion-label>
+                            </ng-container>
+                            <ng-template #paso2Template>
+                                <ion-label style="font-size: 12pt" color="medium">Tu pedido está siendo preparado</ion-label>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row no-padding style="text-align: left">
+                        <ion-col no-padding size="2">
+                            <div style="position: relative; width: 100%; height: 100%">
+                                <div class="linea"></div>
+                                <ng-container *ngIf="status.paso3; else icono3Template">
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="success" name="checkmark-circle"></ion-icon>
+                                    </div>
+                                </ng-container>
+                                <ng-template #icono3Template>
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="medium" name="radio-button-on"></ion-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ng-container *ngIf="status.paso3; else paso3Template">
+                                <ion-label style="font-size: 12pt">Pedido listo para envío</ion-label> <br>
+                                <ion-label style="font-size: 8pt" color="medium">{{status.paso3}}</ion-label>
+                            </ng-container>
+                            <ng-template #paso3Template>
+                                <ion-label style="font-size: 12pt" color="medium">Pedido listo para envío</ion-label>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row no-padding style="text-align: left">
+                        <ion-col no-padding size="2">
+                            <div style="position: relative; width: 100%; height: 100%">
+                                <div class="linea"></div>
+                                <ng-container *ngIf="status.paso4; else icono4Template">
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="success" name="checkmark-circle"></ion-icon>
+                                    </div>
+                                </ng-container>
+                                <ng-template #icono4Template>
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="medium" name="radio-button-on"></ion-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ng-container *ngIf="status.paso4; else paso4Template">
+                                <ion-label style="font-size: 12pt">Tu repartidor va en camino</ion-label> <br>
+                                <ion-label style="font-size: 8pt" color="medium">{{status.paso4}}</ion-label>
+                            </ng-container>
+                            <ng-template #paso4Template>
+                                <ion-label style="font-size: 12pt" color="medium">Tu repartidor va en camino</ion-label>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row no-padding style="text-align: left">
+                        <ion-col no-padding size="2">
+                            <div style="position: relative; width: 100%; height: 100%">
+                                <div class="linea"></div>
+                                <ng-container *ngIf="status.paso5; else icono5Template">
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="success" name="checkmark-circle"></ion-icon>
+                                    </div>
+                                </ng-container>
+                                <ng-template #icono5Template>
+                                    <div class="icono">
+                                        <ion-icon style="background: white" color="medium" name="radio-button-on"></ion-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ng-container *ngIf="status.paso5; else paso5Template">
+                                <ion-label style="font-size: 12pt">Tu repartidor está a punto de llegar</ion-label> <br>
+                                <ion-label style="font-size: 8pt" color="medium">{{status.paso5}}</ion-label>
+                            </ng-container>
+                            <ng-template #paso5Template>
+                                <ion-label style="font-size: 12pt" color="medium">Tu repartidor está a punto de llegar</ion-label>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-button style="margin-top: 1.5rem" color="primary" fill="clear" (click)="llamar()">
+                    <strong>Llamar al restaurante</strong>
+                </ion-button>
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>
+
+<ion-footer *ngIf="showDetails">
+    <ion-toolbar>
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+                <img [src]="avatar" />
+            </ion-avatar>
+            <ion-label>
+                <h1>Juan Pérez</h1>
+                <p>Tu repartidor</p>
+            </ion-label>
+        </ion-item>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button expand="block" fill="outline" color="primary">
+                        Llamar
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button expand="block" color="primary">
+                        Chat
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

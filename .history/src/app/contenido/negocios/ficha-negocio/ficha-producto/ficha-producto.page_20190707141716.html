@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar no-border>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="start" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid no-padding>
+        <ion-row style="text-align: center">
+            <ion-col size="12" *ngIf="producto">
+                <ion-img style="width: 60%; margin: auto" [src]="producto.url" alt=""></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center">
+            <ion-col size="12">
+                Título
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <app-cart (actualiza)="actualizaCart($event)"></app-cart>
+</ion-content>

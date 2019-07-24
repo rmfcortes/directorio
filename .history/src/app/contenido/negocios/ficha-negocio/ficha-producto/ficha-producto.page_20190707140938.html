@@ -1,0 +1,19 @@
+<ion-content>
+    <div style="position: relative">
+        <ion-icon color="primary" class="topleft" (click)="regresar()" name="arrow-back"></ion-icon>
+    </div>
+    <ion-grid no-padding style="margin-top: 2rem">
+        <ion-row style="text-align: center">
+            <ion-col size="12">
+                <ion-img style="width: 60%; margin: 2 rem auto" [src]="[producto.url]" alt=""></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center">
+            <ion-col size="12">
+                Título
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <app-cart (actualiza)="actualizaCart($event)"></app-cart>
+</ion-content>
