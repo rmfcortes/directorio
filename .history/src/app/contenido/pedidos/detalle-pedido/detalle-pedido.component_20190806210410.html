@@ -1,0 +1,58 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Tu pedido</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid no-padding>
+        <ion-row style="margin-top: 0.5rem; text-align: center">
+            <ion-col size="12" style="background: var(--ion-color-primary);">
+                <h5 style="color: whitesmoke; margin: 0">Entregar en:</h5>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 0.5rem; text-align: center">
+            <ion-col size="12">
+                <ion-label>{{direccion}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 0.5rem; text-align: center">
+            <ion-col size="12" style="background: var(--ion-color-primary);">
+                <h5 style="color: whitesmoke; margin: 0">Productos</h5>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 0.5rem; text-align: center" *ngFor="let item of cart">
+            <ion-col size="2">
+                <ion-label color="primary">{{item.cantidad}}x</ion-label>
+            </ion-col>
+            <ion-col size="7">
+                <ion-label>{{item.nombre}}</ion-label>
+            </ion-col>
+            <ion-col size="3">
+                <ion-label>{{item.total | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <hr class="linea">
+        <ion-row style="margin-top: 0.5rem; text-align: center">
+            <ion-col size="6">
+                <ion-label style="font-size: 8pt" color="medium">Envío</ion-label>
+            </ion-col>
+            <ion-col size="6">
+                <ion-label style="font-size: 8pt" color="primary">{{cuenta.envio | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 0.5rem; text-align: center">
+            <ion-col size="6">
+                <ion-label style="font-size: 8pt" color="medium">Subtotal</ion-label>
+            </ion-col>
+            <ion-col size="6">
+                <ion-label style="font-size: 8pt" color="primary">{{cuenta.cuenta | currency:'CAD':'symbol-narrow':'1.0-2'}}</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

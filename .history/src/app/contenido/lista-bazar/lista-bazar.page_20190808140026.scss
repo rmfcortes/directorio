@@ -1,0 +1,23 @@
+.topleft {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 18pt;
+    z-index: 3;
+}
+
+.cell {
+    display: table-cell;
+    border: 2px dotted lightgray;
+}
+
+.wrap-text {
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+ion-thumbnail {
+    width: 25vw;
+    height: auto;
+}

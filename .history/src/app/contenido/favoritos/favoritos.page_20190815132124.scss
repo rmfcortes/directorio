@@ -1,0 +1,69 @@
+ion-thumbnail {
+    width: 25vw;
+    height: auto;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mt-0 {
+    margin-top: 0px;
+}
+
+.wrap-text {
+    margin-right: 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+.negocio-descripcion {
+    color: gray;
+    font-size: 12px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+}
+
+.grid-item {
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.heart {
+    z-index: 1;
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+}
+
+.product-name {
+    height: 75px;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+}
+
+.circle {
+    position: absolute;
+    bottom: 17.5px;
+    right: 8px;
+    border-radius: 100%;
+    background: white;
+    width: 35px;
+    height: 35px;
+    z-index: 1;
+}
+
+.ico {
+    position: absolute;
+    bottom: 12%;
+    right: 13.5%;
+    font-size: 18pt;
+    z-index: 2;
+}

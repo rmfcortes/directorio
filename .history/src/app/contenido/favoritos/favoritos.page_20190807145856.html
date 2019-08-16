@@ -1,0 +1,136 @@
+<ion-content>
+
+    <ion-slides [options]="slideOpts">
+        <ion-slide>
+            <ng-container *ngIf="infoReady; else infoTemplate">
+                <div style="width: 100%; height: 100%">
+                    <ion-grid style="margin-top: 2rem" *ngIf="!hasFavoritos">
+                        <ion-row style="text-align: center;">
+                            <ion-col>
+                                <h6 style="color: var(--ion-color-medium);">No tienes productos, servicios o negocios guardados en tu lista de Favoritos</h6>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row style="text-align: center;">
+                            <ion-col>
+                                <ion-img src="../../assets/images/favoritos.png"></ion-img>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row style="text-align: center;">
+                            <ion-col>
+                                <h6 style="color: var(--ion-color-medium);">Busca el símbolo
+                                    <ion-icon color="primary" name="heart-empty"></ion-icon>
+                                    para empezar a llenar tu lista
+                                </h6>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="12">
+                                <lottie-animation-view [options]="lottieConfig" [width]="60" [height]="120">
+                                </lottie-animation-view>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                <div style="width: 80%; position: relative; left: 10%;">
+                                    <ion-list *ngFor="let item of categorias">
+                                        <ion-item detail (click)="getListaFavoritos(item)">
+                                            <ion-label color="medium">{{item | titlecase}}</ion-label>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </ng-container>
+            <ng-template #infoTemplate>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12" style="margin-top: .75rem">
+                            <ion-skeleton-text animated style="width: 85px; height: 85px; border-radius: 100%; margin: auto"></ion-skeleton-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top: 2rem">
+                        <ion-col size="12">
+                            <div *ngFor="let item of [1,2,3,4,5,6,7]">
+                                <ion-skeleton-text animated style="width: 80%; height: 25px; border-radius: 5px; margin: 10px auto"></ion-skeleton-text>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ng-template>
+
+        </ion-slide>
+        <ion-slide>
+            <div style="width: 100%; height: 100%">
+                <ion-buttons slot="start">
+                    <ion-button (click)="regresarCategorias()">
+                        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+
+                <div [ngSwitch]="categoria">
+                    <ion-list *ngSwitchCase="'Restaurantes'">
+                        <ion-list>
+                            <ion-item *ngFor="let item of favoritos" (click)="muestraNegocio(item)" detail>
+                                <ion-thumbnail slot="start">
+                                    <img [src]="item.url">
+                                </ion-thumbnail>
+                                <ion-grid no-padding>
+                                    <ion-row>
+                                        <ion-col>
+                                            <h6 class="mb-5 mt-0 wrap-text">{{item.nombre}}</h6>
+                                            <ion-label class="negocio-descripcion">{{item.subCategoria}}</ion-label>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            <div *ngIf="item.rate > 0">
+                                                <span class="star">{{item.rate | number:'1.0-2'}}
+                                                    <ion-icon name="star"></ion-icon>
+                                                    <small style="color: darkgray">({{item.valoraciones}})</small>
+                                                </span>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-item>
+                        </ion-list>
+                    </ion-list>
+                    <ion-list *ngSwitchCase="'ofertas'">
+                        <div *ngFor="let oferta of favoritos; let i = index;">
+                            <div class="relative">
+                                <ion-img (click)="presentOferta(oferta)" [src]="oferta.url" alt=""></ion-img>
+                            </div>
+                            <hr>
+                        </div>
+                    </ion-list>
+                    <ion-list *ngSwitchDefault>
+                        <ion-list>
+                            <ion-item detail *ngFor="let item of favoritos" (click)="presentOpciones(item)">
+                                <ion-thumbnail *ngIf="item.url" slot="start">
+                                    <img [src]="item.url">
+                                </ion-thumbnail>
+                                <div class="wrap-text">
+                                    <h6>{{item.nombre}}</h6>
+                                    <p>
+                                        <ion-text *ngIf="isEmpleo" color="medium"><strong>{{item.empresa}}</strong></ion-text> <br *ngIf="isEmpleo">
+                                        <ion-text *ngIf="!isEmpleo" color="medium">{{item.descripcion}}</ion-text> <br *ngIf="!isEmpleo">
+                                    </p>
+                                </div>
+                                <ion-note *ngIf="item.precio" slot="end" style="margin-right: 0.8rem; font-size: 18px" color="primary">
+                                    {{item.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                                </ion-note>
+                            </ion-item>
+                        </ion-list>
+                    </ion-list>
+                </div>
+
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>

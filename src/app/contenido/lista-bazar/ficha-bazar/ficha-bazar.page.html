@@ -1,0 +1,186 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="articulo">{{articulo.titulo}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="relative">
+        <ion-img class="topleft" (click)="regresar()" src="../../assets/images/back.png" alt=""></ion-img>
+
+        <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <h3 style="color: #ff4f38">Este anuncio ha sido borrado</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row style="text-align: center;">
+                <ion-col>
+                    <ion-img src="../../assets/images/oops.jpg"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <div *ngIf="infoReady && !noLongerExist">
+        <ion-card style="margin: 0 0 0.25rem 0 !important; border-radius: 0 !important">
+            <ion-slides pager="true" [options]="slidesOpts" #slideWithNav>
+                <ion-slide *ngFor="let s of articulo.url">
+                    <img [src]="s">
+                </ion-slide>
+            </ion-slides>
+            <ion-card-header *ngIf="!inmueble">
+                <ion-card-title>{{articulo.titulo}}</ion-card-title>
+                <ion-card-subtitle>{{articulo.descripcion}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-header *ngIf="inmueble">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="8">
+                            <ion-card-title>{{articulo.titulo}}</ion-card-title>
+                            <ion-card-subtitle>{{articulo.descripcion}}</ion-card-subtitle>
+                        </ion-col>
+                        <ion-col size="4">
+                            <ion-button (click)="muestraMapa()" fill="clear" color="primary" class="keypad-button">
+                                <div class="keypad-button-inner">
+                                    <ion-icon class="icono-opciones" name="pin"></ion-icon>
+                                    <ion-label>Ver mapa</ion-label>
+                                </div>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-header>
+            <ion-card-content>
+                <div *ngIf="inmueble">
+                    <ion-grid class="linea">
+                        <ion-row>
+                            <ion-col size="5">
+                                <ion-text color="primary">Renta / venta</ion-text>
+                            </ion-col>
+                            <ion-col size="7">
+                                {{articulo.tipoVenta}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="5">
+                                <ion-text color="primary">Ubicación</ion-text>
+                            </ion-col>
+                            <ion-col size="7">
+                                {{articulo.direccion}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="5">
+                                <ion-text color="primary">Superficie</ion-text>
+                            </ion-col>
+                            <ion-col size="7">
+                                {{articulo.superficie}}m2
+                            </ion-col>
+                        </ion-row>
+                        <div *ngIf="articulo.tipoInmueble !== 'terreno'">
+                            <ion-row>
+                                <ion-col size="5">
+                                    <ion-text color="primary">Estacionamiento</ion-text>
+                                </ion-col>
+                                <ion-col size="7">
+                                    {{articulo.cochera}}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="5">
+                                    <ion-text color="primary">Habitaciones</ion-text>
+                                </ion-col>
+                                <ion-col size="7">
+                                    {{articulo.recamaras}}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="5">
+                                    <ion-text color="primary">Baños</ion-text>
+                                </ion-col>
+                                <ion-col size="7">
+                                    {{articulo.wc}}
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-grid>
+                </div>
+                <ion-grid class="linea">
+                    <ion-row>
+                        <h6 style="margin-left: 1rem; color: #ff4f38">CONTACTO</h6>
+                    </ion-row>
+                    <ion-item lines="none">
+                        <ion-text color="medium">
+                            {{articulo.contacto}} -- {{articulo.telefono}}
+                        </ion-text>
+                    </ion-item>
+                </ion-grid>
+                <ion-grid>
+                    <ion-row>
+                        <h6 style="margin-left: 1rem; color: #ff4f38">PREGUNTAS</h6>
+                    </ion-row>
+                    <ion-list>
+                        <ion-item lines="none" *ngIf="preguntas.length === 0">
+                            <ion-label color="medium">
+                                Sé el primero en preguntar
+                            </ion-label>
+                        </ion-item>
+                        <div *ngFor="let pregunta of preguntas">
+                            <ion-item lines="none">
+                                <ion-avatar slot="start">
+                                    <img [src]="pregunta.url">
+                                </ion-avatar>
+                                <ion-item lines="none">
+                                    <p>
+                                        <ion-text style="font-size: 9pt;" color="medium">{{pregunta.nombre}}</ion-text> <br>
+                                        <ion-text style="font-size: 12pt;">
+                                            <ion-icon name="text"></ion-icon> {{pregunta.pregunta.pregunta}}
+                                        </ion-text>
+                                    </p>
+                                </ion-item>
+                            </ion-item>
+                            <ion-item lines="none" *ngIf="pregunta.respuesta">
+                                <ion-label color="medium">
+                                    <ion-icon style="transform: scale(-1, 1);" name="text"></ion-icon> {{pregunta.respuesta}}
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                        <ion-item lines="none">
+                            <ion-button (click)="isAuth()" style="margin: auto" size="small" color="secondary" fill="clear">
+                                Preguntar
+                            </ion-button>
+                        </ion-item>
+                    </ion-list>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</ion-content>
+
+<ion-footer *ngIf="infoReady && !noLongerExist">
+    <ion-toolbar>
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col no-padding>
+                    <ion-label color="primary" style="font-size: 20pt; margin-left: 1rem">
+                        {{articulo.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                        <ion-icon *ngIf="!isFavorito" (click)="favorito()" name="heart-empty"></ion-icon>
+                        <ion-icon *ngIf="isFavorito" (click)="borrarFavorito()" name="heart"></ion-icon>
+                    </ion-label>
+                </ion-col>
+                <ion-col no-padding>
+                    <ion-button (click)="llamar()" style="float:right; margin-right: 1rem" color="primary" size="small">LLAMAR
+                        <ion-icon slot="end" name="call"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>
