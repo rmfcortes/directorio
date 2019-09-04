@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-toolbar *ngIf="infoReady" color="primary">
+        <ion-buttons slot="end">
+            <ion-button (click)="regresar()">
+                Cerrar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="infoReady">
+        <ion-grid>
+            <ng-container *ngIf="hasPreguntas; else preguntaTemplate">
+                <ion-row>
+                    <ng-container *ngIf="negocio.preguntas > 3; else elseTemplate">
+                        <ion-col size="12">
+                            <ion-item lines="none" detail (click)="muestraComentarios('preguntas')">
+                                <h6 style="margin-left: 1rem">
+                                    PREGUNTAS
+                                </h6>
+                                <ion-note color="primary" slot="end">Ver todas</ion-note>
+                            </ion-item>
+                        </ion-col>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <ion-col size="12">
+                            <ion-item lines="none">
+                                <h6 style="margin-left: 1rem">
+                                    PREGUNTAS
+                                </h6>
+                            </ion-item>
+                        </ion-col>
+                    </ng-template>
+                </ion-row>
+                <ion-row>
+                    <ion-list>
+                        <div *ngFor="let pregunta of preguntas">
+                            <ion-item lines="none">
+                                <ion-item lines="none">
+                                    <ion-text style="font-size: 12pt;">
+                                        <ion-icon name="text" style="margin-right: 0.5rem"></ion-icon> {{pregunta.pregunta}}
+                                        <div *ngIf="pregunta.respuesta" style="margin-left: 1rem">
+                                            <ion-icon color="medium" style="transform: scale(-1, 1); margin-right: 0.5rem" name="text"></ion-icon>
+                                            <span style="color: var(--ion-color-medium);">{{pregunta.respuesta}}</span>
+                                        </div>
+                                    </ion-text>
+                                </ion-item>
+                            </ion-item>
+                        </div>
+
+                    </ion-list>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="10">
+                        <ion-input [(ngModel)]="duda" class="pregunta-box" clearInput="true" placeholder="Escribe aquí tu pregunta"></ion-input>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-button (click)="preguntar()" fill="clear">
+                            <ion-icon slot="icon-only" name="send"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+            <ng-template #preguntaTemplate>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item lines="none">
+                            <h6>
+                                PREGUNTAS
+                            </h6>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="10">
+                        <ion-input [(ngModel)]="duda" class="pregunta-box" clearInput="true" placeholder="Sé el primero en preguntar"></ion-input>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-button (click)="preguntar()" fill="clear">
+                            <ion-icon slot="icon-only" name="send"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ng-template>
+        </ion-grid>
+    </div>
+</ion-content>

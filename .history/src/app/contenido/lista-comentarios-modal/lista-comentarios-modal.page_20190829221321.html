@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="regresar()">
+                <ion-icon color="light" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Reseñas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item lines="none" *ngFor="let opinion of comentarios">
+            <ion-avatar slot="start">
+                <img [src]="opinion.url">
+            </ion-avatar>
+            <ion-note slot="end">{{opinion.puntos}}
+                <ion-icon style="color:orange; margin-left: 0.5rem" name="star">
+                </ion-icon>
+            </ion-note>
+            <div>
+                <ion-text style="font-size: 9pt;" color="medium">{{opinion.usuario}}</ion-text> <br>
+                <ion-text style="font-size: 12pt;">
+                    "{{opinion.comentario}}"
+                </ion-text>
+            </div>
+        </ion-item>
+    </ion-list>
+
+
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadComentarios($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

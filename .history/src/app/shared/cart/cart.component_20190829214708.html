@@ -1,0 +1,6 @@
+<div id="mySidenav" class="sidenav">
+    <ion-label *ngIf="cantidad > 0" color="light" class="cuenta" (click)="openCart()">
+        <ion-badge style="margin-right: 1rem" color="light">{{cantidad}}</ion-badge>
+        <strong>Ver carrito: {{cuenta | currency:'CAD':'symbol-narrow':'1.0-2'}}</strong>
+    </ion-label>
+</div>

@@ -1,0 +1,224 @@
+<ion-header class="animate-bottom">
+    <ion-toolbar [appScrollVanish]="scrollArea" (visible)="isVisible = $event.data">
+        <div class="relative">
+            <ion-icon color="primary" class="topleft" (click)="regresar()" name="arrow-back"></ion-icon>
+            <ion-grid *ngIf="infoNegocio">
+                <ion-row style="text-align: center">
+                    <ion-col size="12">
+                        <img style="width: 25%" [src]="infoNegocio.url">
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment scrollable color="danger">
+            <ion-segment-button *ngFor="let pasillo of pasillos" (click)="muestraPasillo(pasillo)">
+                {{pasillo}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #scrollArea scrollEvents="true">
+    <ion-grid style="margin-top: 2rem" *ngIf="noLongerExist">
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <h3 style="color: #ff4f38">Este anuncio ha sido borrado</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;">
+            <ion-col>
+                <ion-img src="../../assets/images/oops.jpg"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="animate-bottom" *ngIf="!noLongerExist">
+        <div *ngIf="prodsReady">
+            <span [ngSwitch]="negocio.vista">
+                <div *ngSwitchCase="'Bloque'">
+                        <div [id]="item.nombre" *ngFor="let item of productos; let i = index; let first = first">
+                                <ion-item lines="none" detail (click)="muestraPasillo(item.nombre)">
+                                    <h4 style="color: var(--ion-color-primary)" text-wrap>{{item.nombre | titlecase}}</h4>
+                                    <ion-note *ngIf="!first" slot="end" color="primary">Ver todos</ion-note>
+                                </ion-item>
+                                <div class="scrolling-wrapper">
+                                    <div class="card" *ngFor="let prod of item.productos; let y = index">
+                                        <div style="position: relative;">
+                                            <ion-img (click)="muestraProducto(prod, item.nombre)" [src]="prod.url" alt=""></ion-img>
+                                            <div class="heart">
+                                                <ng-container *ngIf="!prod.guardado; else elseTemplate">
+                                                    <ion-icon color="primary" color="medium" (click)="agregarProductoFavorito(prod, i, y)" name="heart-empty"></ion-icon>
+                                                </ng-container>
+                                                <ng-template #elseTemplate>
+                                                    <ion-icon color="primary" color="primary" (click)="borrarProductoFavorito(prod, i, y)" name="heart"></ion-icon>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                        <div class="product-name">
+                                            <h6 text-wrap>{{prod.nombre}}</h6>
+                                        </div>
+                                        <span style="color: var(--ion-color-medium); font-size: 13pt">
+                                                {{prod.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}
+                                            </span> <br>
+            <span style="color: var(--ion-color-medium); font-size: 12pt">
+                                                {{prod.unidad}}
+                                            </span><br>
+            <div>
+                <ng-container *ngIf="!prod.cart; else botones">
+                    <ion-button expand="block" (click)="addProduct(prod, item.nombre, i, y)" class="boton-add" fill="clear" color="primary" size="small">
+                        Agregar
+                    </ion-button>
+                </ng-container>
+                <ng-template #botones>
+                    <ion-button expand="block" class="boton-add" fill="clear" color="primary" size="small">
+                        <ion-grid fixed no-padding>
+                            <ion-row no-padding>
+                                <ion-col align-self-center no-padding size="3" (click)="plusProduct(prod, i, y)">
+                                    +
+                                </ion-col>
+                                <ion-col align-self-center no-padding size="6">
+                                    <ion-input readonly="true" class="inpu" type="number" [(ngModel)]="prod.cantidad"></ion-input>
+                                </ion-col>
+                                <ion-col align-self-center no-padding size="3" (click)="minusProduct(prod, i, y)">
+                                    -
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-button>
+                </ng-template>
+            </div>
+        </div>
+        <div class="card" *ngIf="!first">
+            <ion-grid (click)="muestraPasillo(item.nombre)">
+                <ion-row style="text-align: center">
+                    <ion-col size="12" align-self-start>
+                        <ion-icon style="font-size: 32pt" color="primary" src="../../../../assets/icon/derecha.svg"></ion-icon>
+                    </ion-col>
+                    <ion-col size="12" align-self-start>
+                        <ion-label color="primary">Ver más</ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <div style="height: 75px;"></div>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div *ngSwitchCase="'Info'">
+
+    </div>
+    <div *ngSwitchCase="'Lista'">
+        <ion-list *ngFor="let item of productos; let i = index">
+            <ion-list-header style="--color: var(--ion-color-primary);">
+                <ion-label>{{item.nombre}}</ion-label>
+            </ion-list-header>
+            <ion-item style="--padding-start: 0">
+                <ion-grid fixed>
+                    <ion-row *ngFor="let prod of item.productos; let y = index">
+                        <ion-col size="8">
+                            <ion-item (click)="muestraProducto(prod, item.nombre)" lines="none">
+                                <ion-label text-wrap>
+                                    <h2>{{prod.nombre}}</h2>
+                                    <p style="font-size: 10pt; color:var(--ion-color-medium);">{{prod.descripcion}}</p>
+                                    <p style="font-size: 12pt; color:var(--ion-color-primary);">{{prod.precio | currency:'CAD':'symbol-narrow':'1.0-2'}}</p>
+                                </ion-label>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="4">
+                            <img [src]="prod.url" style="width: 80%; margin-left: 10%"> <br>
+                            <div>
+                                <ng-container *ngIf="!prod.cart; else botones">
+                                    <ion-button expand="block" (click)="addProduct(prod, item.nombre, i, y)" class="boton-add" fill="clear" color="primary" size="small">
+                                        Agregar
+                                    </ion-button>
+                                </ng-container>
+                                <ng-template #botones>
+                                    <ion-button expand="block" class="boton-add" fill="clear" color="primary" size="small">
+                                        <ion-grid fixed no-padding>
+                                            <ion-row no-padding>
+                                                <ion-col align-self-center no-padding size="3" (click)="plusProduct(prod, i, y)">
+                                                    +
+                                                </ion-col>
+                                                <ion-col align-self-center no-padding size="6">
+                                                    <ion-input readonly="true" class="inpu" type="number" [(ngModel)]="prod.cantidad"></ion-input>
+                                                </ion-col>
+                                                <ion-col align-self-center no-padding size="3" (click)="minusProduct(prod, i, y)">
+                                                    -
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-button>
+                                </ng-template>
+                            </div>
+                        </ion-col>
+                        <div class="heart">
+                            <ng-container *ngIf="!prod.guardado; else elseTemplate">
+                                <ion-icon color="primary" color="medium" (click)="agregarProductoFavorito(prod, i, y)" name="heart-empty"></ion-icon>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <ion-icon color="primary" color="primary" (click)="borrarProductoFavorito(prod, i, y)" name="heart"></ion-icon>
+                            </ng-template>
+                        </div>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+    </span>
+    </div>
+    </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-fab horizontal="end" vertical="top" slot="fixed" edge *ngIf="favReady">
+        <ion-fab-button size="small">
+            <ion-icon name="more"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list>
+            <ion-fab-button color="light">
+                <ion-icon name="cart"></ion-icon>
+            </ion-fab-button>
+            <ng-container *ngIf="guardado; else guardadoTemplate">
+                <ion-fab-button (click)="borrarFavorito()" color="light">
+                    <ion-icon name="heart"></ion-icon>
+                </ion-fab-button>
+            </ng-container>
+            <ng-template #guardadoTemplate>
+                <ion-fab-button (click)="agregarFavorito()" color="light">
+                    <ion-icon name="heart-empty"></ion-icon>
+                </ion-fab-button>
+            </ng-template>
+            <ion-fab-button color="light" (click)="llamar()">
+                <ion-icon name="call"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="muestraMapa()">
+                <ion-icon name="pin"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)=presentInfoSucursal()>
+                <ion-icon name="information-circle"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="muestraComentarios()">
+                <ion-icon name="star"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="muestraPreguntas()">
+                <ion-icon name="help-circle"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
+    <div style="width: 100%; height: 50px;">
+    </div>
+
+    <div *ngIf="modalClosed && infoReady">
+        <app-cart (cierra)="regresarDelay()" (actualiza)="actualizaCart($event)" [preparacion]="negocio.preparacion" [id]="negocio.id" [telefono]="negocio.telefono" [nombre]="negocio.nombre">
+        </app-cart>
+    </div>
+
+</ion-content>
