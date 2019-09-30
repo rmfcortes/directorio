@@ -10,6 +10,7 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 
 import { InmueblesFormPage } from './inmuebles-form.page';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { InmueblesFormPage } from './inmuebles-form.page';
     FormsModule,
     IonicModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0',
+      apiKey: environment.mapsApiKey,
       libraries: ['places']
     }),
   ],

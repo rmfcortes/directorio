@@ -8,6 +8,7 @@ import { MapaPage } from './mapa.page';
 
 import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     FormsModule,
     IonicModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0',
+      apiKey: environment.mapsApiKey,
       libraries: ['places']
     }),
   ],

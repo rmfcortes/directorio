@@ -13,6 +13,8 @@ export const environment = {
     messagingSenderId: '765159975436',
     appId: '1:765159975436:web:ebaeb6e58e82ab84'
   },
+  mapsApiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0',
+  directionsApiKey: 'AIzaSyAFtykUh1rRQOUyqSWHn4lLt1yaNZedXGA'
 };
 
 /*

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleMaps } from '@ionic-native/google-maps/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RutasService {
   API_URL: string;
 
   constructor(public http: HTTP) {
-    this.API_KEY = 'AIzaSyAFtykUh1rRQOUyqSWHn4lLt1yaNZedXGA';
+    this.API_KEY = environment.directionsApiKey;
     this.API_URL = `https://maps.googleapis.com/maps/api/directions/json?key=${this.API_KEY}&`;
   }
 

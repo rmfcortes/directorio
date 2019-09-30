@@ -10,6 +10,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { PedidosPage } from './pedidos.page';
 import { DetallePedidoModule } from './detalle-pedido/detalle-pedido.module';
+import { environment } from 'src/environments/environment';
+
 
 const routes: Routes = [
   {
@@ -26,7 +28,7 @@ const routes: Routes = [
     DetallePedidoModule,
     LottieAnimationViewModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0'
+      apiKey: environment.mapsApiKey
     }),
     RouterModule.forChild(routes)
   ],

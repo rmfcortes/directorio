@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { AgmCoreModule } from '@agm/core';
 
 import { InfoSucursalModalPage } from './info-sucursal-modal.page';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { InfoSucursalModalPage } from './info-sucursal-modal.page';
     FormsModule,
     IonicModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD2bkQuBBHIVNcwmzQRFG6sIdx4WNWGL_0'
+      apiKey: environment.mapsApiKey
     }),
   ],
   declarations: [InfoSucursalModalPage],
